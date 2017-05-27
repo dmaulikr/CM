@@ -28,10 +28,10 @@
             </objects>
             <point key="canvasLocation" x="-1028" y="-54"/>
         </scene>
-        <!--Main View Controlle-->
+        <!--Main View Controller-->
         <scene sceneID="8ks-0b-cLP">
             <objects>
-                <viewController storyboardIdentifier="CLMMainViewControlle" id="fpQ-y3-xmC" customClass="CLMMainViewControlle" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CLMMainViewController" id="fpQ-y3-xmC" customClass="CLMMainViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="gvG-T5-fFH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -62,7 +62,7 @@
                                     <constraint firstAttribute="trailing" secondItem="6mE-Ch-Gsw" secondAttribute="trailing" id="zDk-tf-Xdd"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="cardImageView" destination="6mE-Ch-Gsw" id="N1c-g7-xWO"/>
+                                    <outlet property="cardImageView" destination="6mE-Ch-Gsw" id="VMy-1n-w3I"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -121,7 +121,7 @@
         <!--Score Rank View Controller-->
         <scene sceneID="s1h-Yf-X0N">
             <objects>
-                <viewController storyboardIdentifier="ScoreRankViewController" id="64t-rg-4Le" customClass="ScoreRankViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CLMScoreRankViewController" id="64t-rg-4Le" customClass="CLMScoreRankViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S5r-cX-ZIo"/>
                         <viewControllerLayoutGuide type="bottom" id="Cwb-2n-8bj"/>
@@ -174,7 +174,7 @@
                                 <rect key="frame" x="0.0" y="111" width="375" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScoreRankTableViewCell" rowHeight="50" id="KpH-Jc-hte">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CLMScoreRankTableViewCell" rowHeight="50" id="KpH-Jc-hte" customClass="CLMScoreRankTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KpH-Jc-hte" id="Vst-Cq-7W9">
@@ -216,9 +216,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="nameLabel" destination="ay7-AE-tRI" id="rRI-6d-qf9"/>
-                                            <outlet property="rankLabel" destination="939-0P-f2J" id="EDr-tM-2fY"/>
-                                            <outlet property="scoreLabel" destination="ADP-ZN-6NG" id="yQp-Tn-8DJ"/>
+                                            <outlet property="nameLabel" destination="ay7-AE-tRI" id="2xO-Iv-kdq"/>
+                                            <outlet property="rankLabel" destination="939-0P-f2J" id="Y7H-hH-e3a"/>
+                                            <outlet property="scoreLabel" destination="ADP-ZN-6NG" id="iPY-gx-SQR"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -236,12 +236,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="scoreRankTableView" destination="x1z-w2-ka3" id="Ok8-Up-jLb"/>
+                        <outlet property="scoreRankTableView" destination="x1z-w2-ka3" id="5iE-Rq-U2u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JMj-0m-0wi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="598" y="-55"/>
+            <point key="canvasLocation" x="551" y="-54"/>
         </scene>
     </scenes>
     <resources>

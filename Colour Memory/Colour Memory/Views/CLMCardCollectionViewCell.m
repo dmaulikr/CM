@@ -8,10 +8,10 @@
 
 #import "CLMCardCollectionViewCell.h"
 
-@interface CLMCardCollectionViewCell ()
+@interface  CLMCardCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *cardImageView;
-@property (assign, nonatomic, readwrite) NSInteger isRemoved;
+@property (assign, nonatomic) NSInteger isRemoved;
 
 @end
 

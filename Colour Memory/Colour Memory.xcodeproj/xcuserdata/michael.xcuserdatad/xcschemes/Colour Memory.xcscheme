@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C4185721ED90A7F00E51BEF"
+               BlueprintIdentifier = "4C41851C1ED8238700E51BEF"
                BuildableName = "Colour Memory.app"
                BlueprintName = "Colour Memory"
                ReferencedContainer = "container:Colour Memory.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4C4185721ED90A7F00E51BEF"
+            BlueprintIdentifier = "4C41851C1ED8238700E51BEF"
             BuildableName = "Colour Memory.app"
             BlueprintName = "Colour Memory"
             ReferencedContainer = "container:Colour Memory.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4C4185721ED90A7F00E51BEF"
+            BlueprintIdentifier = "4C41851C1ED8238700E51BEF"
             BuildableName = "Colour Memory.app"
             BlueprintName = "Colour Memory"
             ReferencedContainer = "container:Colour Memory.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4C4185721ED90A7F00E51BEF"
+            BlueprintIdentifier = "4C41851C1ED8238700E51BEF"
             BuildableName = "Colour Memory.app"
             BlueprintName = "Colour Memory"
             ReferencedContainer = "container:Colour Memory.xcodeproj">

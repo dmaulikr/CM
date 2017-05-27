@@ -27,12 +27,12 @@
 		4C41855F1ED84A7600E51BEF /* CardEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C41855E1ED84A7600E51BEF /* CardEntity.m */; };
 		4C4185621ED8D94100E51BEF /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185601ED8D94100E51BEF /* rank@2x.png */; };
 		4C4185631ED8D94100E51BEF /* Restart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185611ED8D94100E51BEF /* Restart@2x.png */; };
-		4C4185CE1ED91BFA00E51BEF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185CC1ED91BFA00E51BEF /* Info.plist */; };
 		4C4185CF1ED91BFA00E51BEF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185CD1ED91BFA00E51BEF /* main.m */; };
 		4C4185D41ED91C0A00E51BEF /* CLMScoreRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D11ED91C0A00E51BEF /* CLMScoreRankViewController.m */; };
 		4C4185D51ED91C0A00E51BEF /* CLMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D31ED91C0A00E51BEF /* CLMMainViewController.m */; };
 		4C4185DA1ED91C1600E51BEF /* CLMCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D71ED91C1600E51BEF /* CLMCardCollectionViewCell.m */; };
 		4C4185DB1ED91C1600E51BEF /* CLMScoreRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D91ED91C1600E51BEF /* CLMScoreRankTableViewCell.m */; };
+		4CB3AB9A1ED97F73000D2A23 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3AB991ED97F73000D2A23 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +60,6 @@
 		4C41855E1ED84A7600E51BEF /* CardEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardEntity.m; path = Model/CardEntity.m; sourceTree = "<group>"; };
 		4C4185601ED8D94100E51BEF /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rank@2x.png"; path = "Images/rank@2x.png"; sourceTree = "<group>"; };
 		4C4185611ED8D94100E51BEF /* Restart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Restart@2x.png"; path = "Images/Restart@2x.png"; sourceTree = "<group>"; };
-		4C4185CC1ED91BFA00E51BEF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		4C4185CD1ED91BFA00E51BEF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Supporting Files/main.m"; sourceTree = "<group>"; };
 		4C4185D01ED91C0A00E51BEF /* CLMScoreRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLMScoreRankViewController.h; path = Controllers/CLMScoreRankViewController.h; sourceTree = "<group>"; };
 		4C4185D11ED91C0A00E51BEF /* CLMScoreRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLMScoreRankViewController.m; path = Controllers/CLMScoreRankViewController.m; sourceTree = "<group>"; };
@@ -70,6 +69,7 @@
 		4C4185D71ED91C1600E51BEF /* CLMCardCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLMCardCollectionViewCell.m; path = Views/CLMCardCollectionViewCell.m; sourceTree = "<group>"; };
 		4C4185D81ED91C1600E51BEF /* CLMScoreRankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLMScoreRankTableViewCell.h; path = Views/CLMScoreRankTableViewCell.h; sourceTree = "<group>"; };
 		4C4185D91ED91C1600E51BEF /* CLMScoreRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLMScoreRankTableViewCell.m; path = Views/CLMScoreRankTableViewCell.m; sourceTree = "<group>"; };
+		4CB3AB991ED97F73000D2A23 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Supporting Files/Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +118,7 @@
 		4C4185201ED8238700E51BEF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4C4185CC1ED91BFA00E51BEF /* Info.plist */,
+				4CB3AB991ED97F73000D2A23 /* Info.plist */,
 				4C4185CD1ED91BFA00E51BEF /* main.m */,
 				4C41852C1ED8238800E51BEF /* Assets.xcassets */,
 				4C41852E1ED8238800E51BEF /* LaunchScreen.storyboard */,
@@ -257,7 +257,7 @@
 				4C41854A1ED826EB00E51BEF /* colour6@2x.png in Resources */,
 				4C41852D1ED8238800E51BEF /* Assets.xcassets in Resources */,
 				4C41854B1ED826EB00E51BEF /* colour7@2x.png in Resources */,
-				4C4185CE1ED91BFA00E51BEF /* Info.plist in Resources */,
+				4CB3AB9A1ED97F73000D2A23 /* Info.plist in Resources */,
 				4C41854F1ED826EB00E51BEF /* logo@2x.png in Resources */,
 				4C41852B1ED8238800E51BEF /* Main.storyboard in Resources */,
 				4C4185461ED826EB00E51BEF /* colour2@2x.png in Resources */,

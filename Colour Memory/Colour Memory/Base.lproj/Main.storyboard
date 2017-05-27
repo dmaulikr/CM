@@ -28,10 +28,10 @@
             </objects>
             <point key="canvasLocation" x="-1028" y="-54"/>
         </scene>
-        <!--View Controller-->
+        <!--Main View Controlle-->
         <scene sceneID="8ks-0b-cLP">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="fpQ-y3-xmC" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CLMMainViewControlle" id="fpQ-y3-xmC" customClass="CLMMainViewControlle" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="gvG-T5-fFH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

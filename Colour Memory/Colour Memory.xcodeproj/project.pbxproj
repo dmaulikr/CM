@@ -27,6 +27,8 @@
 		4C4185B41ED90E0800E51BEF /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185A71ED90E0800E51BEF /* logo@2x.png */; };
 		4C4185B51ED90E0800E51BEF /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185A81ED90E0800E51BEF /* rank@2x.png */; };
 		4C4185B61ED90E0800E51BEF /* Restart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185A91ED90E0800E51BEF /* Restart@2x.png */; };
+		4C4185BB1ED90F4E00E51BEF /* CardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185B81ED90F4E00E51BEF /* CardItem.m */; };
+		4C4185BC1ED90F4E00E51BEF /* UserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185BA1ED90F4E00E51BEF /* UserItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,10 @@
 		4C4185A71ED90E0800E51BEF /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo@2x.png"; path = "Images/logo@2x.png"; sourceTree = "<group>"; };
 		4C4185A81ED90E0800E51BEF /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rank@2x.png"; path = "Images/rank@2x.png"; sourceTree = "<group>"; };
 		4C4185A91ED90E0800E51BEF /* Restart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Restart@2x.png"; path = "Images/Restart@2x.png"; sourceTree = "<group>"; };
+		4C4185B71ED90F4E00E51BEF /* CardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardItem.h; path = Model/CardItem.h; sourceTree = "<group>"; };
+		4C4185B81ED90F4E00E51BEF /* CardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardItem.m; path = Model/CardItem.m; sourceTree = "<group>"; };
+		4C4185B91ED90F4E00E51BEF /* UserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserItem.h; path = Model/UserItem.h; sourceTree = "<group>"; };
+		4C4185BA1ED90F4E00E51BEF /* UserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserItem.m; path = Model/UserItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,9 +97,9 @@
 				4C4185791ED90A7F00E51BEF /* AppDelegate.h */,
 				4C41857A1ED90A7F00E51BEF /* AppDelegate.m */,
 				4C41857F1ED90A7F00E51BEF /* Main.storyboard */,
+				4C4185921ED90C1000E51BEF /* Controllers */,
 				4C4185941ED90C1F00E51BEF /* Views */,
 				4C4185931ED90C1900E51BEF /* Model */,
-				4C4185921ED90C1000E51BEF /* Controllers */,
 				4C41859B1ED90D7200E51BEF /* Database */,
 				4C41859C1ED90DBC00E51BEF /* Images */,
 				4C4185761ED90A7F00E51BEF /* Supporting Files */,
@@ -126,6 +132,10 @@
 		4C4185931ED90C1900E51BEF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4C4185B71ED90F4E00E51BEF /* CardItem.h */,
+				4C4185B81ED90F4E00E51BEF /* CardItem.m */,
+				4C4185B91ED90F4E00E51BEF /* UserItem.h */,
+				4C4185BA1ED90F4E00E51BEF /* UserItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -252,8 +262,10 @@
 			files = (
 				4C4185971ED90CD400E51BEF /* CLMMainViewControlle.m in Sources */,
 				4C41857B1ED90A7F00E51BEF /* AppDelegate.m in Sources */,
+				4C4185BB1ED90F4E00E51BEF /* CardItem.m in Sources */,
 				4C41859A1ED90D3400E51BEF /* CLMScoreRankViewController.m in Sources */,
 				4C4185841ED90A7F00E51BEF /* Colour_Memory.xcdatamodeld in Sources */,
+				4C4185BC1ED90F4E00E51BEF /* UserItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

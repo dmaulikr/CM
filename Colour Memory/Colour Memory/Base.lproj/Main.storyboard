@@ -43,7 +43,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCollectionViewCell" id="AY3-7v-oLG" customClass="CardCollectionViewCell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CLMCardCollectionViewCell" id="AY3-7v-oLG" customClass="CLMCardCollectionViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="134" height="122"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -62,7 +62,7 @@
                                     <constraint firstAttribute="trailing" secondItem="6mE-Ch-Gsw" secondAttribute="trailing" id="zDk-tf-Xdd"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="cardImageView" destination="6mE-Ch-Gsw" id="Nka-8B-HMQ"/>
+                                    <outlet property="cardImageView" destination="6mE-Ch-Gsw" id="N1c-g7-xWO"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -174,7 +174,7 @@
                                 <rect key="frame" x="0.0" y="111" width="375" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScoreRankTableViewCell" rowHeight="50" id="KpH-Jc-hte" customClass="ScoreRankTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScoreRankTableViewCell" rowHeight="50" id="KpH-Jc-hte">
                                         <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KpH-Jc-hte" id="Vst-Cq-7W9">
@@ -241,7 +241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JMj-0m-0wi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="916" y="-55.322338830584712"/>
+            <point key="canvasLocation" x="598" y="-55"/>
         </scene>
     </scenes>
     <resources>

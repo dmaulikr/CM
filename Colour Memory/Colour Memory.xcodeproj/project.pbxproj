@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4C41857B1ED90A7F00E51BEF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C41857A1ED90A7F00E51BEF /* AppDelegate.m */; };
 		4C4185811ED90A7F00E51BEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C41857F1ED90A7F00E51BEF /* Main.storyboard */; };
-		4C4185841ED90A7F00E51BEF /* Colour_Memory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185821ED90A7F00E51BEF /* Colour_Memory.xcdatamodeld */; };
 		4C4185861ED90A7F00E51BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185851ED90A7F00E51BEF /* Assets.xcassets */; };
 		4C4185891ED90A7F00E51BEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185871ED90A7F00E51BEF /* LaunchScreen.storyboard */; };
 		4C4185971ED90CD400E51BEF /* CLMMainViewControlle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185951ED90CD400E51BEF /* CLMMainViewControlle.m */; };
@@ -29,6 +28,8 @@
 		4C4185B61ED90E0800E51BEF /* Restart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185A91ED90E0800E51BEF /* Restart@2x.png */; };
 		4C4185BB1ED90F4E00E51BEF /* CardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185B81ED90F4E00E51BEF /* CardItem.m */; };
 		4C4185BC1ED90F4E00E51BEF /* UserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185BA1ED90F4E00E51BEF /* UserItem.m */; };
+		4C4185BF1ED9130A00E51BEF /* CLMCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185BE1ED9130A00E51BEF /* CLMCardCollectionViewCell.m */; };
+		4C4185C81ED9197900E51BEF /* Colour_Memory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185C61ED9197900E51BEF /* Colour_Memory.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +37,6 @@
 		4C4185791ED90A7F00E51BEF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C41857A1ED90A7F00E51BEF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4C4185801ED90A7F00E51BEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4C4185831ED90A7F00E51BEF /* Colour_Memory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Colour_Memory.xcdatamodel; sourceTree = "<group>"; };
 		4C4185851ED90A7F00E51BEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C4185881ED90A7F00E51BEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C41858A1ED90A7F00E51BEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,6 +62,9 @@
 		4C4185B81ED90F4E00E51BEF /* CardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardItem.m; path = Model/CardItem.m; sourceTree = "<group>"; };
 		4C4185B91ED90F4E00E51BEF /* UserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserItem.h; path = Model/UserItem.h; sourceTree = "<group>"; };
 		4C4185BA1ED90F4E00E51BEF /* UserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserItem.m; path = Model/UserItem.m; sourceTree = "<group>"; };
+		4C4185BD1ED9130A00E51BEF /* CLMCardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLMCardCollectionViewCell.h; path = Views/CLMCardCollectionViewCell.h; sourceTree = "<group>"; };
+		4C4185BE1ED9130A00E51BEF /* CLMCardCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLMCardCollectionViewCell.m; path = Views/CLMCardCollectionViewCell.m; sourceTree = "<group>"; };
+		4C4185C71ED9197900E51BEF /* Colour_Memory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Colour_Memory.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,8 @@
 		4C4185941ED90C1F00E51BEF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C4185BD1ED9130A00E51BEF /* CLMCardCollectionViewCell.h */,
+				4C4185BE1ED9130A00E51BEF /* CLMCardCollectionViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -150,7 +155,7 @@
 		4C41859B1ED90D7200E51BEF /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				4C4185821ED90A7F00E51BEF /* Colour_Memory.xcdatamodeld */,
+				4C4185C61ED9197900E51BEF /* Colour_Memory.xcdatamodeld */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -261,10 +266,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C4185971ED90CD400E51BEF /* CLMMainViewControlle.m in Sources */,
+				4C4185C81ED9197900E51BEF /* Colour_Memory.xcdatamodeld in Sources */,
 				4C41857B1ED90A7F00E51BEF /* AppDelegate.m in Sources */,
 				4C4185BB1ED90F4E00E51BEF /* CardItem.m in Sources */,
 				4C41859A1ED90D3400E51BEF /* CLMScoreRankViewController.m in Sources */,
-				4C4185841ED90A7F00E51BEF /* Colour_Memory.xcdatamodeld in Sources */,
+				4C4185BF1ED9130A00E51BEF /* CLMCardCollectionViewCell.m in Sources */,
 				4C4185BC1ED90F4E00E51BEF /* UserItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,17 +442,19 @@
 				4C41858F1ED90A7F00E51BEF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		4C4185821ED90A7F00E51BEF /* Colour_Memory.xcdatamodeld */ = {
+		4C4185C61ED9197900E51BEF /* Colour_Memory.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				4C4185831ED90A7F00E51BEF /* Colour_Memory.xcdatamodel */,
+				4C4185C71ED9197900E51BEF /* Colour_Memory.xcdatamodel */,
 			);
-			currentVersion = 4C4185831ED90A7F00E51BEF /* Colour_Memory.xcdatamodel */;
-			path = Colour_Memory.xcdatamodeld;
+			currentVersion = 4C4185C71ED9197900E51BEF /* Colour_Memory.xcdatamodel */;
+			name = Colour_Memory.xcdatamodeld;
+			path = Database/Colour_Memory.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

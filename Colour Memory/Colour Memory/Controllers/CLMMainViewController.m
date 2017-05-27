@@ -10,28 +10,28 @@
 #import "CLMCardCollectionViewCell.h"
 #import "CardItem.h"
 
-static NSString * const CELL_REUSEID = @"CLMCardCollectionViewCell";
-static CGFloat const IMAGE_ASPECT_RATIO = 1.25;
-static NSInteger const HORIZON_NUMBER = 4;
-static CGFloat const PADDING_GAP = 15;
-
-
 @interface CLMMainViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *cardsCollectionView;
 @property (weak, nonatomic) IBOutlet UIButton *scoreButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
-@property (strong, nonatomic, ) NSArray<CardItem *> *cardItemList;
+@property (strong, nonatomic) NSArray<CardItem *> *cardItemList;
 @property (strong, nonatomic) NSIndexPath *previousIndexPath;
 @property (assign, nonatomic) NSInteger cardsCount;
 @property (assign, nonatomic) NSInteger scoreCount;
 @property (strong, nonatomic) NSString *userName;
+@property (assign, nonatomic) CGFloat padding;
 
 @end
 
 
 @implementation CLMMainViewController
+
+static NSString * const CELL_REUSEID = @"CLMCardCollectionViewCell";
+static CGFloat const IMAGE_ASPECT_RATIO = 1.25;
+static NSInteger const HORIZON_NUMBER = 4;
+static CGFloat const IPHONE_PADDING_GAP = 15;
 
 - (void)viewDidLoad
 {
@@ -39,6 +39,7 @@ static CGFloat const PADDING_GAP = 15;
     
     [self initDataSource];
     [self initCollectionView];
+    [self registerNotification];
 }
 
 - (void)initCollectionView
@@ -52,9 +53,18 @@ static CGFloat const PADDING_GAP = 15;
     self.cardItemList = [CardListItem cardItemList];
     self.cardsCount = self.cardItemList.count;
     self.previousIndexPath = nil;
+    self.padding = IPHONE_PADDING_GAP;
     self.scoreCount = 0;
     self.userName = @"";
 }
+
+- (void)registerNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationDidChange)
+                                                 name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
 
 #pragma mark - UICollectionViewDataSource
 
@@ -76,26 +86,46 @@ static CGFloat const PADDING_GAP = 15;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIDevice *device = [UIDevice currentDevice];
+    UIDeviceOrientation orientation = [device orientation];
+    
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat itemWidth = (screenWidth - (HORIZON_NUMBER+1)*PADDING_GAP)/HORIZON_NUMBER;
-    CGFloat itemHeight = itemWidth*IMAGE_ASPECT_RATIO;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat itemWidth = 0.0f;
+    CGFloat itemHeight = 0.0f;
+    
+    if ([device userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+         if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
+             itemHeight = ((screenHeight-64) - (HORIZON_NUMBER+1)*IPHONE_PADDING_GAP*1.5)/HORIZON_NUMBER;
+             itemWidth = itemHeight/IMAGE_ASPECT_RATIO;
+             self.padding = (screenWidth - HORIZON_NUMBER*itemWidth)/(HORIZON_NUMBER + 1);
+         } else {
+             self.padding = IPHONE_PADDING_GAP*1.5;
+             itemWidth = (screenWidth - (HORIZON_NUMBER+1)*self.padding)/HORIZON_NUMBER;
+             itemHeight = itemWidth*IMAGE_ASPECT_RATIO;
+         }
+    } else {
+        itemWidth = (screenWidth - (HORIZON_NUMBER+1)*IPHONE_PADDING_GAP)/HORIZON_NUMBER;
+        itemHeight = itemWidth*IMAGE_ASPECT_RATIO;
+        self.padding = IPHONE_PADDING_GAP;
+    }
     
     return CGSizeMake(itemWidth, itemHeight);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return PADDING_GAP;
+    return IPHONE_PADDING_GAP;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return PADDING_GAP;
+    return self.padding;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(PADDING_GAP*2, PADDING_GAP, 0, PADDING_GAP);
+    return UIEdgeInsetsMake(IPHONE_PADDING_GAP*2, self.padding, 0, self.padding);
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -148,7 +178,6 @@ static CGFloat const PADDING_GAP = 15;
     [self updateScore:isSameType];
     self.previousIndexPath = nil;
     self.cardsCollectionView.userInteractionEnabled = true;
-
 }
 
 - (void)updateScore:(BOOL)isScorePlus
@@ -184,6 +213,14 @@ static CGFloat const PADDING_GAP = 15;
     _scoreCount = scoreCount;
     
     [self.scoreButton setTitle:[NSString stringWithFormat:@"Score:%@", @(self.scoreCount)] forState:UIControlStateNormal];
+}
+
+#pragma mark - orientation change
+- (void)orientationDidChange
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self.cardsCollectionView reloadData];
+    }
 }
 
 #pragma mark - Alter

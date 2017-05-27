@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0A34A61ED9229E00C7E6A7 /* colour_memory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A34A41ED9229E00C7E6A7 /* colour_memory.xcdatamodeld */; };
 		4C4185251ED8238700E51BEF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185241ED8238700E51BEF /* AppDelegate.m */; };
 		4C41852B1ED8238800E51BEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185291ED8238800E51BEF /* Main.storyboard */; };
 		4C41852D1ED8238800E51BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C41852C1ED8238800E51BEF /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0A34A51ED9229E00C7E6A7 /* colour_memory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = colour_memory.xcdatamodel; sourceTree = "<group>"; };
 		4C41851D1ED8238700E51BEF /* Colour Memory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Colour Memory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4185231ED8238700E51BEF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C4185241ED8238700E51BEF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		4C4185CA1ED91B3C00E51BEF /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				4C0A34A41ED9229E00C7E6A7 /* colour_memory.xcdatamodeld */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				4C4185DA1ED91C1600E51BEF /* CLMCardCollectionViewCell.m in Sources */,
 				4C4185DB1ED91C1600E51BEF /* CLMScoreRankTableViewCell.m in Sources */,
 				4C41855C1ED834CB00E51BEF /* UserItem.m in Sources */,
+				4C0A34A61ED9229E00C7E6A7 /* colour_memory.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +447,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4C0A34A41ED9229E00C7E6A7 /* colour_memory.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4C0A34A51ED9229E00C7E6A7 /* colour_memory.xcdatamodel */,
+			);
+			currentVersion = 4C0A34A51ED9229E00C7E6A7 /* colour_memory.xcdatamodel */;
+			name = colour_memory.xcdatamodeld;
+			path = Database/colour_memory.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4C4185151ED8238700E51BEF /* Project object */;
 }

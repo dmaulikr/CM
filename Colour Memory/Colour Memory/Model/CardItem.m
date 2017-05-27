@@ -22,8 +22,8 @@
 
 @implementation CardListItem
 
-#define BACKGROUND_IMAGE_NAME    @"card_bg.png"
-#define MAX_NUM     9
+static NSString * const BACKGROUND_IMAGE_NAME = @"card_bg.png";
+static NSInteger const MAX_NUM = 9;
 
 + (NSArray<CardItem *> *)cardItemList
 {

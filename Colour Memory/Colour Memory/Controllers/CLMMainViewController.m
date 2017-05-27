@@ -23,7 +23,7 @@
 @property (strong, nonatomic) NSIndexPath *previousIndexPath;
 @property (assign, nonatomic) NSInteger cardsCount;
 @property (assign, nonatomic) NSInteger scoreCount;
-@property (strong, nonatomic) NSString *userName;
+@property (copy, nonatomic) NSString *userName;
 @property (assign, nonatomic) CGFloat padding;
 
 @end
@@ -42,7 +42,6 @@ static NSInteger const HORIZON_NUMBER = 4;
     
     [self initDataSource];
     [self initCollectionView];
-    [self registerNotification];
 }
 
 - (void)initCollectionView
@@ -59,13 +58,6 @@ static NSInteger const HORIZON_NUMBER = 4;
     self.padding = IPHONE_PADDING_GAP;
     self.scoreCount = 0;
     self.userName = @"";
-}
-
-- (void)registerNotification
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationDidChange)
-                                                 name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -89,28 +81,16 @@ static NSInteger const HORIZON_NUMBER = 4;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UIDevice *device = [UIDevice currentDevice];
-    UIDeviceOrientation orientation = [device orientation];
-    
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGFloat itemWidth = 0.0f;
-    CGFloat itemHeight = 0.0f;
     
     if ([device userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-         if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
-             itemHeight = ((screenHeight-64) - (HORIZON_NUMBER+1)*IPHONE_PADDING_GAP*1.5)/HORIZON_NUMBER;
-             itemWidth = itemHeight/IMAGE_ASPECT_RATIO;
-             self.padding = (screenWidth - HORIZON_NUMBER*itemWidth)/(HORIZON_NUMBER + 1);
-         } else {
-             self.padding = IPHONE_PADDING_GAP*2;
-             itemWidth = (screenWidth - (HORIZON_NUMBER+1)*self.padding)/HORIZON_NUMBER;
-             itemHeight = itemWidth*IMAGE_ASPECT_RATIO;
-         }
+        self.padding = IPHONE_PADDING_GAP*2;
     } else {
-        itemWidth = (screenWidth - (HORIZON_NUMBER+1)*IPHONE_PADDING_GAP)/HORIZON_NUMBER;
-        itemHeight = itemWidth*IMAGE_ASPECT_RATIO;
         self.padding = IPHONE_PADDING_GAP;
     }
+    
+    CGFloat itemWidth = (screenWidth - (HORIZON_NUMBER+1)*self.padding)/HORIZON_NUMBER;
+    CGFloat itemHeight = itemWidth*IMAGE_ASPECT_RATIO;
     
     return CGSizeMake(itemWidth, itemHeight);
 }
@@ -206,7 +186,7 @@ static NSInteger const HORIZON_NUMBER = 4;
     _cardsCount = cardsCount;
     
     if (cardsCount == 0) {
-        [self inputUserName];
+        [self showInputUserNameAlter];
     }
 }
 
@@ -217,18 +197,10 @@ static NSInteger const HORIZON_NUMBER = 4;
     [self.scoreButton setTitle:[NSString stringWithFormat:@"Score:%@", @(self.scoreCount)] forState:UIControlStateNormal];
 }
 
-#pragma mark - orientation change
-- (void)orientationDidChange
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        [self.cardsCollectionView reloadData];
-    }
-}
-
 #pragma mark - Alter
-- (void)inputUserName /** TODO: optimizing*/
+- (void)showInputUserNameAlter /** TODO: optimizing*/
 {
-    UIAlertController *actionSheetController = [UIAlertController alertControllerWithTitle:@"Congratulation!" message:@"You won the match" preferredStyle: UIAlertControllerStyleAlert];
+    UIAlertController *actionSheetController = [UIAlertController alertControllerWithTitle:@"Congratulation!" message:@"Please enter your name" preferredStyle: UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField *userNameTextField = [actionSheetController textFields][0];
         self.userName = userNameTextField.text;
@@ -246,6 +218,11 @@ static NSInteger const HORIZON_NUMBER = 4;
     
     [actionSheetController addAction:okAction];
     [self presentViewController:actionSheetController animated:true completion:nil];
+}
+
+- (void)showRestartAlter
+{
+    UIAlertController *actionSheetController = [UIAlertController alertControllerWithTitle:@"" message:@"Do your want restart a game?" preferredStyle: UIAlertControllerStyleAlert];
 }
 
 - (void)addNewRecordToDatabase

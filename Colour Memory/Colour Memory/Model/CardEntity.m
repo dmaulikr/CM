@@ -10,9 +10,9 @@
 
 @interface CardEntity ()
 
-@property (strong, nonatomic, readwrite) NSString *backgroundImageName;
-@property (strong, nonatomic, readwrite) NSString *cardImageName;
-@property (strong, nonatomic, readwrite) NSString *type;
+@property (copy, nonatomic, readwrite) NSString *backgroundImageName;
+@property (copy, nonatomic, readwrite) NSString *cardImageName;
+@property (copy, nonatomic, readwrite) NSString *type;
 
 @end
 
@@ -34,7 +34,9 @@ static NSInteger const MAX_NUM = 9;
     }
     
     NSArray *disorderNumberList = [[numberListM sortedArrayUsingComparator:^NSComparisonResult(NSNumber *obj1, NSNumber *obj2) {
-        NSInteger seed = arc4random_uniform(3);
+        NSInteger seed = arc4random_uniform(2);
+        //NSLog(@"obj1: %@,obje2: %@, random: %@", obj1, obj2, @(seed));
+        
         if (seed > 0) {
             return [obj1 compare:obj2];
         } else {

@@ -10,7 +10,7 @@
 
 @interface UserEntity ()
 
-@property (strong, nonatomic, readwrite) NSString *userName;
+@property (copy, nonatomic, readwrite) NSString *userName;
 @property (assign, nonatomic, readwrite) NSInteger score;
 @property (assign, nonatomic, readwrite) NSInteger rank;
 

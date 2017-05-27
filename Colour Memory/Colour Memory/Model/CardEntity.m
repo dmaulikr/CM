@@ -1,14 +1,14 @@
 //
-//  CardItem.m
+//  CardEntity.m
 //  Colour Memory
 //
-//  Created by Michael Zhai on 26/05/17.
+//  Created by Michael Zhai on 27/05/17.
 //  Copyright © 2017 Michael Zhai. All rights reserved.
 //
 
-#import "CardItem.h"
+#import "CardEntity.h"
 
-@interface CardItem ()
+@interface CardEntity ()
 
 @property (strong, nonatomic, readwrite) NSString *backgroundImageName;
 @property (strong, nonatomic, readwrite) NSString *cardImageName;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation CardItem
+@implementation CardEntity
 @end
 
 
@@ -25,7 +25,7 @@
 static NSString * const BACKGROUND_IMAGE_NAME = @"card_bg.png";
 static NSInteger const MAX_NUM = 9;
 
-+ (NSArray<CardItem *> *)cardItemList
++ (NSArray<CardEntity *> *)cardItemList
 {
     NSMutableArray *numberListM = [NSMutableArray array];
     for (NSInteger i=1; i<MAX_NUM; i++) {
@@ -45,8 +45,9 @@ static NSInteger const MAX_NUM = 9;
     
     NSMutableArray *nameListM = [NSMutableArray array];
     for (NSInteger i=0; i<disorderNumberList.count; i++) {
-        CardItem *item = [[CardItem alloc] init];
+        CardEntity *item = [[CardEntity alloc] init];
         NSNumber *number = disorderNumberList[i];
+        
         item.cardImageName = [NSString stringWithFormat:@"colour%@.png",number];
         item.backgroundImageName = BACKGROUND_IMAGE_NAME;
         item.type = [NSString stringWithFormat:@"type_%@", number];

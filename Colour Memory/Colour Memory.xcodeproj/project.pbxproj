@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C0A34A61ED9229E00C7E6A7 /* colour_memory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A34A41ED9229E00C7E6A7 /* colour_memory.xcdatamodeld */; };
+		4C0A34B21ED9508700C7E6A7 /* ColourMemory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A34B01ED9508700C7E6A7 /* ColourMemory.xcdatamodeld */; };
 		4C4185251ED8238700E51BEF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185241ED8238700E51BEF /* AppDelegate.m */; };
 		4C41852B1ED8238800E51BEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185291ED8238800E51BEF /* Main.storyboard */; };
 		4C41852D1ED8238800E51BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C41852C1ED8238800E51BEF /* Assets.xcassets */; };
@@ -23,8 +23,8 @@
 		4C41854C1ED826EB00E51BEF /* colour8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185401ED826EB00E51BEF /* colour8@2x.png */; };
 		4C41854D1ED826EB00E51BEF /* icon_57x57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185411ED826EB00E51BEF /* icon_57x57@2x.png */; };
 		4C41854F1ED826EB00E51BEF /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185431ED826EB00E51BEF /* logo@2x.png */; };
-		4C41855C1ED834CB00E51BEF /* UserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C41855B1ED834CB00E51BEF /* UserItem.m */; };
-		4C41855F1ED84A7600E51BEF /* CardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C41855E1ED84A7600E51BEF /* CardItem.m */; };
+		4C41855C1ED834CB00E51BEF /* UserEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C41855B1ED834CB00E51BEF /* UserEntity.m */; };
+		4C41855F1ED84A7600E51BEF /* CardEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C41855E1ED84A7600E51BEF /* CardEntity.m */; };
 		4C4185621ED8D94100E51BEF /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185601ED8D94100E51BEF /* rank@2x.png */; };
 		4C4185631ED8D94100E51BEF /* Restart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185611ED8D94100E51BEF /* Restart@2x.png */; };
 		4C4185CE1ED91BFA00E51BEF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185CC1ED91BFA00E51BEF /* Info.plist */; };
@@ -36,7 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4C0A34A51ED9229E00C7E6A7 /* colour_memory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = colour_memory.xcdatamodel; sourceTree = "<group>"; };
+		4C0A34B11ED9508700C7E6A7 /* ColourMemory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ColourMemory.xcdatamodel; sourceTree = "<group>"; };
 		4C41851D1ED8238700E51BEF /* Colour Memory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Colour Memory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4185231ED8238700E51BEF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C4185241ED8238700E51BEF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,10 +54,10 @@
 		4C4185401ED826EB00E51BEF /* colour8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "colour8@2x.png"; path = "Images/colour8@2x.png"; sourceTree = "<group>"; };
 		4C4185411ED826EB00E51BEF /* icon_57x57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_57x57@2x.png"; path = "Images/icon_57x57@2x.png"; sourceTree = "<group>"; };
 		4C4185431ED826EB00E51BEF /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo@2x.png"; path = "Images/logo@2x.png"; sourceTree = "<group>"; };
-		4C41855A1ED834CB00E51BEF /* UserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserItem.h; path = Model/UserItem.h; sourceTree = "<group>"; };
-		4C41855B1ED834CB00E51BEF /* UserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserItem.m; path = Model/UserItem.m; sourceTree = "<group>"; };
-		4C41855D1ED84A7600E51BEF /* CardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardItem.h; path = Model/CardItem.h; sourceTree = "<group>"; };
-		4C41855E1ED84A7600E51BEF /* CardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardItem.m; path = Model/CardItem.m; sourceTree = "<group>"; };
+		4C41855A1ED834CB00E51BEF /* UserEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserEntity.h; path = Model/UserEntity.h; sourceTree = "<group>"; };
+		4C41855B1ED834CB00E51BEF /* UserEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserEntity.m; path = Model/UserEntity.m; sourceTree = "<group>"; };
+		4C41855D1ED84A7600E51BEF /* CardEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardEntity.h; path = Model/CardEntity.h; sourceTree = "<group>"; };
+		4C41855E1ED84A7600E51BEF /* CardEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardEntity.m; path = Model/CardEntity.m; sourceTree = "<group>"; };
 		4C4185601ED8D94100E51BEF /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rank@2x.png"; path = "Images/rank@2x.png"; sourceTree = "<group>"; };
 		4C4185611ED8D94100E51BEF /* Restart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Restart@2x.png"; path = "Images/Restart@2x.png"; sourceTree = "<group>"; };
 		4C4185CC1ED91BFA00E51BEF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Supporting Files/Info.plist"; sourceTree = "<group>"; };
@@ -149,10 +149,10 @@
 		4C4185551ED8345800E51BEF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4C41855A1ED834CB00E51BEF /* UserItem.h */,
-				4C41855B1ED834CB00E51BEF /* UserItem.m */,
-				4C41855D1ED84A7600E51BEF /* CardItem.h */,
-				4C41855E1ED84A7600E51BEF /* CardItem.m */,
+				4C41855A1ED834CB00E51BEF /* UserEntity.h */,
+				4C41855B1ED834CB00E51BEF /* UserEntity.m */,
+				4C41855D1ED84A7600E51BEF /* CardEntity.h */,
+				4C41855E1ED84A7600E51BEF /* CardEntity.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -171,7 +171,7 @@
 		4C4185CA1ED91B3C00E51BEF /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				4C0A34A41ED9229E00C7E6A7 /* colour_memory.xcdatamodeld */,
+				4C0A34B01ED9508700C7E6A7 /* ColourMemory.xcdatamodeld */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -219,6 +219,7 @@
 					4C41851C1ED8238700E51BEF = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 9SJVNU62N5;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -275,13 +276,13 @@
 			files = (
 				4C4185D51ED91C0A00E51BEF /* CLMMainViewController.m in Sources */,
 				4C4185D41ED91C0A00E51BEF /* CLMScoreRankViewController.m in Sources */,
-				4C41855F1ED84A7600E51BEF /* CardItem.m in Sources */,
+				4C0A34B21ED9508700C7E6A7 /* ColourMemory.xcdatamodeld in Sources */,
+				4C41855F1ED84A7600E51BEF /* CardEntity.m in Sources */,
 				4C4185251ED8238700E51BEF /* AppDelegate.m in Sources */,
 				4C4185CF1ED91BFA00E51BEF /* main.m in Sources */,
 				4C4185DA1ED91C1600E51BEF /* CLMCardCollectionViewCell.m in Sources */,
 				4C4185DB1ED91C1600E51BEF /* CLMScoreRankTableViewCell.m in Sources */,
-				4C41855C1ED834CB00E51BEF /* UserItem.m in Sources */,
-				4C0A34A61ED9229E00C7E6A7 /* colour_memory.xcdatamodeld in Sources */,
+				4C41855C1ED834CB00E51BEF /* UserEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +410,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "zh.com.Colour-Memory";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -422,6 +424,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "zh.com.Colour-Memory";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -449,14 +452,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		4C0A34A41ED9229E00C7E6A7 /* colour_memory.xcdatamodeld */ = {
+		4C0A34B01ED9508700C7E6A7 /* ColourMemory.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				4C0A34A51ED9229E00C7E6A7 /* colour_memory.xcdatamodel */,
+				4C0A34B11ED9508700C7E6A7 /* ColourMemory.xcdatamodel */,
 			);
-			currentVersion = 4C0A34A51ED9229E00C7E6A7 /* colour_memory.xcdatamodel */;
-			name = colour_memory.xcdatamodeld;
-			path = Database/colour_memory.xcdatamodeld;
+			currentVersion = 4C0A34B11ED9508700C7E6A7 /* ColourMemory.xcdatamodel */;
+			name = ColourMemory.xcdatamodeld;
+			path = Database/ColourMemory.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

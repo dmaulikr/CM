@@ -11,7 +11,7 @@
 @interface  CLMCardCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *cardImageView;
-@property (assign, nonatomic) NSInteger isRemoved;
+@property (assign, nonatomic, readwrite) NSInteger isRemoved;
 
 @end
 

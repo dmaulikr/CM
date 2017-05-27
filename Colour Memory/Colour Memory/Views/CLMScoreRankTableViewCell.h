@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class UserItem;
+@class UserEntity;
 
 @interface CLMScoreRankTableViewCell : UITableViewCell
 
-- (void)setCellWithUserItem:(UserItem *)userItem;
+- (void)setCellWithUser:(UserEntity *)user;
 
 @end

@@ -8,15 +8,18 @@
 
 #import "CLMMainViewController.h"
 #import "CLMCardCollectionViewCell.h"
-#import "CardItem.h"
+#import <CoreData/CoreData.h>
+#import "User+CoreDataClass.h"
+#import "AppDelegate.h"
+#import "CardEntity.h"
 
 @interface CLMMainViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *cardsCollectionView;
-@property (weak, nonatomic) IBOutlet UIButton *scoreButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
+@property (weak, nonatomic) IBOutlet UIButton *scoreButton;
 
-@property (strong, nonatomic) NSArray<CardItem *> *cardItemList;
+@property (strong, nonatomic) NSArray<CardEntity *> *cardItemList;
 @property (strong, nonatomic) NSIndexPath *previousIndexPath;
 @property (assign, nonatomic) NSInteger cardsCount;
 @property (assign, nonatomic) NSInteger scoreCount;
@@ -30,8 +33,8 @@
 
 static NSString * const CELL_REUSEID = @"CLMCardCollectionViewCell";
 static CGFloat const IMAGE_ASPECT_RATIO = 1.25;
-static NSInteger const HORIZON_NUMBER = 4;
 static CGFloat const IPHONE_PADDING_GAP = 15;
+static NSInteger const HORIZON_NUMBER = 4;
 
 - (void)viewDidLoad
 {
@@ -65,7 +68,6 @@ static CGFloat const IPHONE_PADDING_GAP = 15;
                                                  name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
-
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -76,7 +78,7 @@ static CGFloat const IPHONE_PADDING_GAP = 15;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CLMCardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CELL_REUSEID forIndexPath:indexPath];
-    CardItem *cardItem = [self.cardItemList objectAtIndex:indexPath.row];
+    CardEntity *cardItem = [self.cardItemList objectAtIndex:indexPath.row];
     [cell setImageWithName:cardItem.backgroundImageName];
     
     return cell;
@@ -100,7 +102,7 @@ static CGFloat const IPHONE_PADDING_GAP = 15;
              itemWidth = itemHeight/IMAGE_ASPECT_RATIO;
              self.padding = (screenWidth - HORIZON_NUMBER*itemWidth)/(HORIZON_NUMBER + 1);
          } else {
-             self.padding = IPHONE_PADDING_GAP*1.5;
+             self.padding = IPHONE_PADDING_GAP*2;
              itemWidth = (screenWidth - (HORIZON_NUMBER+1)*self.padding)/HORIZON_NUMBER;
              itemHeight = itemWidth*IMAGE_ASPECT_RATIO;
          }
@@ -125,7 +127,7 @@ static CGFloat const IPHONE_PADDING_GAP = 15;
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(IPHONE_PADDING_GAP*2, self.padding, 0, self.padding);
+    return UIEdgeInsetsMake(IPHONE_PADDING_GAP*2, self.padding, IPHONE_PADDING_GAP, self.padding);
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -146,7 +148,7 @@ static CGFloat const IPHONE_PADDING_GAP = 15;
 
 - (void)overturnCardAtIndexPath:(NSIndexPath * )indexPath
 {
-    CardItem *currentItem = [self.cardItemList objectAtIndex:indexPath.row];
+    CardEntity *currentItem = [self.cardItemList objectAtIndex:indexPath.row];
     CLMCardCollectionViewCell *cell = (CLMCardCollectionViewCell *)[self.cardsCollectionView cellForItemAtIndexPath:indexPath];
     [cell setImageWithName:currentItem.cardImageName];
     
@@ -160,8 +162,8 @@ static CGFloat const IPHONE_PADDING_GAP = 15;
 
 - (void)updateCardsStatusAtIndexPath:(NSIndexPath *)indexPath
 {
-    CardItem *previousItem = [self.cardItemList objectAtIndex:self.previousIndexPath.row];
-    CardItem *currentItem = [self.cardItemList objectAtIndex:indexPath.row];
+    CardEntity *previousItem = [self.cardItemList objectAtIndex:self.previousIndexPath.row];
+    CardEntity *currentItem = [self.cardItemList objectAtIndex:indexPath.row];
     CLMCardCollectionViewCell *cell = (CLMCardCollectionViewCell *)[self.cardsCollectionView cellForItemAtIndexPath:indexPath];
     CLMCardCollectionViewCell *previousCell = (CLMCardCollectionViewCell *)[self.cardsCollectionView cellForItemAtIndexPath:self.previousIndexPath];
 
@@ -232,7 +234,7 @@ static CGFloat const IPHONE_PADDING_GAP = 15;
         self.userName = userNameTextField.text;
         
         if (self.userName.length != 0) {
-            // set user object
+            [self addNewRecordToDatabase];
         } else {
             [self presentViewController:actionSheetController animated:true completion:nil];
         }
@@ -244,6 +246,19 @@ static CGFloat const IPHONE_PADDING_GAP = 15;
     
     [actionSheetController addAction:okAction];
     [self presentViewController:actionSheetController animated:true completion:nil];
+}
+
+- (void)addNewRecordToDatabase
+{
+    NSPersistentContainer  *container =  ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
+    [container performBackgroundTask:^(NSManagedObjectContext * _Nonnull context) {
+        User *userEntity = [[User alloc] initWithContext:context];
+        userEntity.name = self.userName;
+        userEntity.score = (int32_t)self.scoreCount;
+        
+        // TODO: handle erro
+        [context save:nil];
+    }];
 }
 
 @end

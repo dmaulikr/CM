@@ -1,5 +1,5 @@
 //
-//  UserItem.h
+//  UserEntity.h
 //  Colour Memory
 //
 //  Created by Michael Zhai on 26/05/17.
@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserItem : NSObject
+@interface UserEntity : NSObject
 
 @property (readonly, nonatomic) NSString *userName;
 @property (readonly, nonatomic) NSInteger score;
 @property (readonly, nonatomic) NSInteger rank;
 
-- (instancetype)initUserItemName:(NSString *)userName score:(NSInteger)score rank:(NSInteger)rank;
+- (instancetype)initUserWithName:(NSString *)userName score:(NSInteger)score rank:(NSInteger)rank;
 
 @end

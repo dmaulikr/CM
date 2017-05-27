@@ -1,14 +1,14 @@
 //
-//  UserItem.m
+//  UserEntity.m
 //  Colour Memory
 //
 //  Created by Michael Zhai on 26/05/17.
 //  Copyright © 2017 Michael Zhai. All rights reserved.
 //
 
-#import "UserItem.h"
+#import "UserEntity.h"
 
-@interface UserItem ()
+@interface UserEntity ()
 
 @property (strong, nonatomic, readwrite) NSString *userName;
 @property (assign, nonatomic, readwrite) NSInteger score;
@@ -16,9 +16,9 @@
 
 @end
 
-@implementation UserItem
+@implementation UserEntity
 
-- (instancetype)initUserItemName:(NSString *)userName score:(NSInteger)score rank:(NSInteger)rank
+- (instancetype)initUserWithName:(NSString *)userName score:(NSInteger)score rank:(NSInteger)rank;
 {
     self = [super init];
     if (self) {

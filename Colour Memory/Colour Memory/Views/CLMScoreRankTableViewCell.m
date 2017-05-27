@@ -7,7 +7,7 @@
 //
 
 #import "CLMScoreRankTableViewCell.h"
-#import "UserItem.h"
+#import "UserEntity.h"
 
 @interface CLMScoreRankTableViewCell ()
 
@@ -19,11 +19,11 @@
 
 @implementation CLMScoreRankTableViewCell
 
-- (void)setCellWithUserItem:(UserItem *)userItem
+- (void)setCellWithUser:(UserEntity *)user
 {
-    self.rankLabel.text = [@(userItem.rank) stringValue];
-    self.scoreLabel.text = [@(userItem.score) stringValue];
-    self.nameLabel.text = userItem.userName;
+    self.rankLabel.text = [@(user.rank) stringValue];
+    self.scoreLabel.text = [@(user.score) stringValue];
+    self.nameLabel.text = user.userName;
 }
 
 @end

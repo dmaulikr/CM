@@ -27,6 +27,10 @@
 - (void)initTableView
 {
     self.scoreRankTableView.dataSource = self;
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:(CGRect){0,0, [UIScreen mainScreen].bounds.size.width, 1}];
+    footerView.backgroundColor = [UIColor whiteColor];
+    self.scoreRankTableView.tableFooterView = footerView;
 }
 
 #pragma mark - UITableViewDataSource

@@ -158,10 +158,10 @@
 		4C4185C91ED91B3000E51BEF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4C4185D01ED91C0A00E51BEF /* CLMScoreRankViewController.h */,
-				4C4185D11ED91C0A00E51BEF /* CLMScoreRankViewController.m */,
 				4C4185D21ED91C0A00E51BEF /* CLMMainViewController.h */,
 				4C4185D31ED91C0A00E51BEF /* CLMMainViewController.m */,
+				4C4185D01ED91C0A00E51BEF /* CLMScoreRankViewController.h */,
+				4C4185D11ED91C0A00E51BEF /* CLMScoreRankViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

@@ -118,10 +118,10 @@
             </objects>
             <point key="canvasLocation" x="-199.5" y="-54.5"/>
         </scene>
-        <!--Score Rank View Controller-->
+        <!--Hight Score View Controller-->
         <scene sceneID="s1h-Yf-X0N">
             <objects>
-                <viewController storyboardIdentifier="CLMScoreRankViewController" id="64t-rg-4Le" customClass="CLMScoreRankViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CLMHightScoreViewController" id="64t-rg-4Le" customClass="CLMHightScoreViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S5r-cX-ZIo"/>
                         <viewControllerLayoutGuide type="bottom" id="Cwb-2n-8bj"/>
@@ -241,7 +241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JMj-0m-0wi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="551" y="-54"/>
+            <point key="canvasLocation" x="549.60000000000002" y="-54.422788605697157"/>
         </scene>
     </scenes>
     <resources>

@@ -24,9 +24,8 @@
 @property (strong, nonatomic) NSIndexPath *previousIndexPath;
 @property (assign, nonatomic) NSInteger cardsCount;
 @property (assign, nonatomic) NSInteger scoreCount;
-@property (copy, nonatomic) NSString *userName;
-@property (strong, nonatomic) NSDate *finishedDate;
 @property (assign, nonatomic) CGFloat padding;
+@property (copy, nonatomic) NSString *userName;
 
 @end
 
@@ -37,6 +36,7 @@ static NSString * const CELL_REUSEID = @"CLMCardCollectionViewCell";
 static CGFloat const IMAGE_ASPECT_RATIO = 1.25;
 static CGFloat const IPHONE_PADDING_GAP = 15;
 static NSInteger const HORIZON_NUMBER = 4;
+static NSInteger const SCORE_STEP = 4;
 
 - (void)viewDidLoad
 {
@@ -137,7 +137,7 @@ static NSInteger const HORIZON_NUMBER = 4;
     if (self.previousIndexPath == nil) {
         self.previousIndexPath = indexPath;
     } else {
-        self.cardsCollectionView.userInteractionEnabled = YES;
+        self.cardsCollectionView.userInteractionEnabled = NO;
         [self performSelector:@selector(updateCardsStatusAtIndexPath:) withObject:indexPath afterDelay:1.0];
     }
 }
@@ -167,10 +167,10 @@ static NSInteger const HORIZON_NUMBER = 4;
 - (void)updateScore:(BOOL)isScorePlus
 {
     if (isScorePlus) {
-        self.scoreCount += 10;
+        self.scoreCount += SCORE_STEP;
         self.cardsCount -= 2;
     } else {
-        self.scoreCount -= 2;
+        self.scoreCount -= SCORE_STEP/2;
     }
 }
 
@@ -182,7 +182,6 @@ static NSInteger const HORIZON_NUMBER = 4;
     
     if (cardsCount == 0) {
         [self showInputUserNameAlter];
-        self.finishedDate = [NSDate date];
     }
 }
 
@@ -195,28 +194,16 @@ static NSInteger const HORIZON_NUMBER = 4;
 
 #pragma mark - Reset the Game
 
-- (IBAction)resetGame:(id)sender {
-    //[self showRestartAlter];
-    [self showInputUserNameAlter];
+- (IBAction)resetGame:(id)sender
+{
+    [self showRestartAlter];
 }
 
-#pragma mark - show Alter
+#pragma mark - Show input name alert
 
-- (void)showInputUserNameAlter /** TODO: optimizing*/
+- (void)showInputUserNameAlter
 {
     UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Information" message:@"Please enter your name" preferredStyle: UIAlertControllerStyleAlert];
-    
-    __weak typeof(self) weakSelf = self;
-    self.okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        if (weakSelf.userName.length != 0) {
-            [weakSelf addNewRecordToDatabase];
-            [weakSelf showRankResultAlert];
-        } else {
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
-    
     [alterController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"User name";
     }];
@@ -224,20 +211,107 @@ static NSInteger const HORIZON_NUMBER = 4;
     UITextField *userNameTextField = [alterController textFields][0];
     userNameTextField.delegate = self;
     
+    __weak typeof(self) weakSelf = self;
+    self.okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (weakSelf.userName.length != 0) {
+            [self SaveUserData];
+        } else {
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+    
     self.okAction.enabled = NO;
     [alterController addAction:self.okAction];
 
     [self presentViewController:alterController animated:YES completion:nil];
 }
 
-- (void)showRankResultAlert
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    // get rank data
-    NSNumber *score = [NSNumber numberWithInteger:self.scoreCount];
-    NSNumber *rank = [NSNumber numberWithInteger:[self getRankNumber]];
+    NSString *text = textField.text;
+    text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    // show alert
-    NSString *message = [NSString stringWithFormat:@"Your rank: %@, score: %@", rank, score];
+    if (text.length > 0) {
+        self.okAction.enabled = YES;
+        self.userName = text;
+    } else {
+        self.okAction.enabled = NO;
+    }
+    
+    return  YES;
+}
+
+static NSString * const SORT_KEY = @"score";
+
+- (void)SaveUserData
+{
+    NSPersistentContainer *container = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
+    NSManagedObjectContext *context = [container viewContext];
+    
+    if (context != nil) {
+        NSFetchRequest *request = [User fetchRequest];
+        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
+        NSArray<User *> *allUserList = [context executeFetchRequest:request error:nil];
+        
+        request.predicate = [NSPredicate predicateWithFormat:@"is_high_score=YES"];
+        NSArray<User *> *highScoreUserList = [context executeFetchRequest:request error:nil];
+        NSInteger highScoreListCount = highScoreUserList.count;
+        
+        if (highScoreListCount == 0) {
+            [self addNewRecordToDatabase:YES];
+            [self showRankResultAlert:1];
+        } else {
+            __weak typeof(self) weakSelf = self;
+            User *hightScoreLastUser = highScoreUserList[highScoreListCount-1];
+            
+            if (self.scoreCount < hightScoreLastUser.score) {
+                if (allUserList.count == highScoreListCount) {
+                    [weakSelf addNewRecordToDatabase:NO];
+                    [weakSelf showRankResultAlert:highScoreListCount+1];
+                } else {
+                    [allUserList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (weakSelf.scoreCount >= user.score) {
+                            [weakSelf addNewRecordToDatabase:NO];
+                            [weakSelf showRankResultAlert:idx+2];
+                            
+                            return;
+                        }
+                    }];
+                }
+            } else {
+                [highScoreUserList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (weakSelf.scoreCount >= user.score) {
+                        [weakSelf addNewRecordToDatabase:YES];
+                        [weakSelf showRankResultAlert:idx+2];
+                        return;
+                    }
+                }];
+            }
+        }
+    }
+}
+
+- (void)addNewRecordToDatabase:(BOOL)isHighScore
+{
+    NSPersistentContainer  *container =  ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
+    [container performBackgroundTask:^(NSManagedObjectContext * _Nonnull context) {
+        User *userEntity = [[User alloc] initWithContext:context];
+        userEntity.name = self.userName;
+        userEntity.score = (int32_t)self.scoreCount;
+        userEntity.finished_time = [NSDate date];
+        userEntity.is_high_score = isHighScore;
+        
+        [context save:nil];
+    }];
+}
+
+#pragma mark - Show rank result alert
+
+- (void)showRankResultAlert:(NSInteger)rank
+{
+    NSString *message = [NSString stringWithFormat:@"Your rank: %@, score: %@", @(rank), @(self.scoreCount)];
     UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:message preferredStyle: UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alterController addAction:okAction];
@@ -245,31 +319,7 @@ static NSInteger const HORIZON_NUMBER = 4;
     [self presentViewController:alterController animated:YES completion:nil];
 }
 
-static NSString * const SORT_KEY = @"score";
-
-- (NSInteger)getRankNumber
-{
-    NSPersistentContainer *container = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
-    NSManagedObjectContext *context = [container viewContext];
-    __block NSInteger rank = 0;
-    
-    if (context != nil) {
-        NSFetchRequest *request = [User fetchRequest];
-        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
-        //request.predicate = [NSPredicate predicateWithFormat:@"name=%@, finished_time=%@",self.userName, self.finishedDate];
-        
-        __weak typeof(self) weakSelf = self;
-        NSArray<User *> *userList = [context executeFetchRequest:request error:nil];
-        [userList enumerateObjectsUsingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(@"user name:%@", user.name);
-            if ([user.name isEqualToString:weakSelf.userName]) {
-                rank = idx + 1;
-            }
-        }];
-    }
-    
-    return rank;
-}
+#pragma mark - Show restart alter
 
 - (void)showRestartAlter
 {
@@ -288,42 +338,6 @@ static NSString * const SORT_KEY = @"score";
     [alterController addAction:okAction];
     
     [self presentViewController:alterController animated:YES completion:nil];
-}
-
-- (void)addNewRecordToDatabase
-{
-    NSPersistentContainer  *container =  ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
-    [container performBackgroundTask:^(NSManagedObjectContext * _Nonnull context) {
-        User *userEntity = [[User alloc] initWithContext:context];
-        userEntity.name = self.userName;
-        userEntity.score = (int32_t)self.scoreCount;
-        userEntity.finished_time = self.finishedDate;
-        
-        [context save:nil];
-        // TODO: handle erro
-//        NSError *error = nil;
-//        BOOL success = [context save:&error];
-//        if (success == NO) {
-//            NSAssert(@"Failed to execute: %@",error);
-//        }
-    }];
-}
-
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    NSString *text = textField.text;
-    text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-    if (text.length > 0) {
-        self.okAction.enabled = YES;
-        self.userName = text;
-    } else {
-        self.okAction.enabled = NO;
-    }
-
-    return  YES;
 }
 
 @end

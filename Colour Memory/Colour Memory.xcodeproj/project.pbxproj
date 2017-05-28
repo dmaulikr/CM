@@ -29,7 +29,7 @@
 		4C4185621ED8D94100E51BEF /* rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185601ED8D94100E51BEF /* rank@2x.png */; };
 		4C4185631ED8D94100E51BEF /* Restart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185611ED8D94100E51BEF /* Restart@2x.png */; };
 		4C4185CF1ED91BFA00E51BEF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185CD1ED91BFA00E51BEF /* main.m */; };
-		4C4185D41ED91C0A00E51BEF /* CLMScoreRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D11ED91C0A00E51BEF /* CLMScoreRankViewController.m */; };
+		4C4185D41ED91C0A00E51BEF /* CLMHightScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D11ED91C0A00E51BEF /* CLMHightScoreViewController.m */; };
 		4C4185D51ED91C0A00E51BEF /* CLMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D31ED91C0A00E51BEF /* CLMMainViewController.m */; };
 		4C4185DA1ED91C1600E51BEF /* CLMCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D71ED91C1600E51BEF /* CLMCardCollectionViewCell.m */; };
 		4C4185DB1ED91C1600E51BEF /* CLMScoreRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D91ED91C1600E51BEF /* CLMScoreRankTableViewCell.m */; };
@@ -64,8 +64,8 @@
 		4C4185601ED8D94100E51BEF /* rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rank@2x.png"; path = "Images/rank@2x.png"; sourceTree = "<group>"; };
 		4C4185611ED8D94100E51BEF /* Restart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Restart@2x.png"; path = "Images/Restart@2x.png"; sourceTree = "<group>"; };
 		4C4185CD1ED91BFA00E51BEF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Supporting Files/main.m"; sourceTree = "<group>"; };
-		4C4185D01ED91C0A00E51BEF /* CLMScoreRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLMScoreRankViewController.h; path = Controllers/CLMScoreRankViewController.h; sourceTree = "<group>"; };
-		4C4185D11ED91C0A00E51BEF /* CLMScoreRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLMScoreRankViewController.m; path = Controllers/CLMScoreRankViewController.m; sourceTree = "<group>"; };
+		4C4185D01ED91C0A00E51BEF /* CLMHightScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLMHightScoreViewController.h; path = Controllers/CLMHightScoreViewController.h; sourceTree = "<group>"; };
+		4C4185D11ED91C0A00E51BEF /* CLMHightScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLMHightScoreViewController.m; path = Controllers/CLMHightScoreViewController.m; sourceTree = "<group>"; };
 		4C4185D21ED91C0A00E51BEF /* CLMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLMMainViewController.h; path = Controllers/CLMMainViewController.h; sourceTree = "<group>"; };
 		4C4185D31ED91C0A00E51BEF /* CLMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLMMainViewController.m; path = Controllers/CLMMainViewController.m; sourceTree = "<group>"; };
 		4C4185D61ED91C1600E51BEF /* CLMCardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLMCardCollectionViewCell.h; path = Views/CLMCardCollectionViewCell.h; sourceTree = "<group>"; };
@@ -165,8 +165,8 @@
 			children = (
 				4C4185D21ED91C0A00E51BEF /* CLMMainViewController.h */,
 				4C4185D31ED91C0A00E51BEF /* CLMMainViewController.m */,
-				4C4185D01ED91C0A00E51BEF /* CLMScoreRankViewController.h */,
-				4C4185D11ED91C0A00E51BEF /* CLMScoreRankViewController.m */,
+				4C4185D01ED91C0A00E51BEF /* CLMHightScoreViewController.h */,
+				4C4185D11ED91C0A00E51BEF /* CLMHightScoreViewController.m */,
 				4C01CD9F1EDA7FBE00C85D7D /* CLMNavigationController.h */,
 				4C01CDA01EDA7FBE00C85D7D /* CLMNavigationController.m */,
 			);
@@ -280,7 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C4185D51ED91C0A00E51BEF /* CLMMainViewController.m in Sources */,
-				4C4185D41ED91C0A00E51BEF /* CLMScoreRankViewController.m in Sources */,
+				4C4185D41ED91C0A00E51BEF /* CLMHightScoreViewController.m in Sources */,
 				4C0A34B21ED9508700C7E6A7 /* ColourMemory.xcdatamodeld in Sources */,
 				4C41855F1ED84A7600E51BEF /* CardEntity.m in Sources */,
 				4C4185251ED8238700E51BEF /* AppDelegate.m in Sources */,

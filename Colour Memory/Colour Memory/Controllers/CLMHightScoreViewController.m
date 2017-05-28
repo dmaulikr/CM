@@ -1,12 +1,12 @@
 //
-//  CLMScoreRankViewController.m
+//  CLMHightScoreViewController.h
 //  Colour Memory
 //
 //  Created by Michael Zhai on 27/05/17.
 //  Copyright © 2017 Michael Zhai. All rights reserved.
 //
 
-#import "CLMScoreRankViewController.h"
+#import "CLMHightScoreViewController.h"
 #import "CLMScoreRankTableViewCell.h"
 #import <CoreData/CoreData.h>
 #import "User+CoreDataClass.h"
@@ -15,18 +15,20 @@
 
 static NSString * const  identifier = @"CLMScoreRankTableViewCell";
 
-@interface CLMScoreRankViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface CLMHightScoreViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *scoreRankTableView;
 @property (strong, nonatomic) NSFetchedResultsController<User *> *fetchResultsController;
 
 @end
 
-@implementation CLMScoreRankViewController
+@implementation CLMHightScoreViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setNavigationBarTitle];
     [self initTableView];
     [self fetchData];
 }
@@ -40,6 +42,17 @@ static NSString * const  identifier = @"CLMScoreRankTableViewCell";
     self.scoreRankTableView.tableFooterView = footerView;
 }
 
+- (void)setNavigationBarTitle
+{
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = @"Hight Score Ranking";
+    
+    self.navigationItem.titleView = titleLabel;
+}
+
 static NSString * const SORT_KEY = @"score";
 
 - (void)fetchData
@@ -50,6 +63,8 @@ static NSString * const SORT_KEY = @"score";
     if (context != nil) {
         NSFetchRequest *request = [User fetchRequest];
         request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
+        request.predicate = [NSPredicate predicateWithFormat:@"is_high_score=YES"];
+        
         self.fetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
         [self.fetchResultsController performFetch:nil];
         [self.scoreRankTableView reloadData];

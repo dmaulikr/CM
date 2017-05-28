@@ -21,6 +21,7 @@
 
 - (BOOL)shouldAutorotate
 {
+    // only game board page displays in portrait 
     if (self.viewControllers.count == 1) {
         return NO;
     }

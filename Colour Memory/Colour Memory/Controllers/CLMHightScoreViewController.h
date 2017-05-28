@@ -1,5 +1,5 @@
 //
-//  CLMScoreRankViewController.h
+//  CLMHightScoreViewController.h
 //  Colour Memory
 //
 //  Created by Michael Zhai on 27/05/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CLMScoreRankViewController : UIViewController
+@interface CLMHightScoreViewController : UIViewController
 
 @end

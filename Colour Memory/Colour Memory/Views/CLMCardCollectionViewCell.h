@@ -12,7 +12,7 @@
 
 @property (readonly, nonatomic) NSInteger isRemoved;
 
-- (void)setImageWithName:(NSString *)name;
+- (void)setImageWithName:(NSString *_Nonnull)name animation:(BOOL)animation completion:(void (^ __nullable)(BOOL finished))completion;
 - (void)removeCard;
 
 @end

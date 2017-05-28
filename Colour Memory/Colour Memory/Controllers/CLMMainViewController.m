@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSIndexPath *previousIndexPath;
 @property (assign, nonatomic) NSInteger cardsCount;
 @property (assign, nonatomic) NSInteger scoreCount;
+@property (assign, nonatomic) NSInteger clickCount;
+
 @property (assign, nonatomic) CGFloat padding;
 @property (copy, nonatomic) NSString *userName;
 
@@ -59,6 +61,7 @@ static NSInteger const SCORE_STEP = 4;
     self.previousIndexPath = nil;
     self.padding = IPHONE_PADDING_GAP;
     self.scoreCount = 0;
+    self.clickCount = 0;
     self.userName = @"";
 }
 
@@ -73,7 +76,7 @@ static NSInteger const SCORE_STEP = 4;
 {
     CLMCardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CELL_REUSEID forIndexPath:indexPath];
     CardEntity *cardItem = [self.cardItemList objectAtIndex:indexPath.row];
-    [cell setImageWithName:cardItem.backgroundImageName];
+    [cell setImageWithName:cardItem.backgroundImageName animation:NO completion:nil];
     
     return cell;
 }
@@ -91,7 +94,7 @@ static NSInteger const SCORE_STEP = 4;
         self.padding = IPHONE_PADDING_GAP;
     }
     
-    CGFloat itemWidth = (screenWidth - (HORIZON_NUMBER+1)*self.padding)/HORIZON_NUMBER;
+    CGFloat itemWidth = (screenWidth - (HORIZON_NUMBER + 1) * self.padding) / HORIZON_NUMBER;
     CGFloat itemHeight = itemWidth*IMAGE_ASPECT_RATIO;
     
     return CGSizeMake(itemWidth, itemHeight);
@@ -132,14 +135,22 @@ static NSInteger const SCORE_STEP = 4;
 {
     CardEntity *currentItem = [self.cardItemList objectAtIndex:indexPath.row];
     CLMCardCollectionViewCell *cell = (CLMCardCollectionViewCell *)[self.cardsCollectionView cellForItemAtIndexPath:indexPath];
-    [cell setImageWithName:currentItem.cardImageName];
     
-    if (self.previousIndexPath == nil) {
-        self.previousIndexPath = indexPath;
-    } else {
+    if (self.clickCount == 2) {
         self.cardsCollectionView.userInteractionEnabled = NO;
-        [self performSelector:@selector(updateCardsStatusAtIndexPath:) withObject:indexPath afterDelay:1.0];
+        return;
+    } else {
+        self.clickCount++;
     }
+    
+    __weak typeof(self) weakSelf = self;
+    [cell setImageWithName:currentItem.cardImageName animation:YES completion:^(BOOL finished) {
+        if (weakSelf.previousIndexPath == nil) {
+            weakSelf.previousIndexPath = indexPath;
+        } else {
+            [weakSelf performSelector:@selector(updateCardsStatusAtIndexPath:) withObject:indexPath afterDelay:1.0];
+        }
+    }];
 }
 
 - (void)updateCardsStatusAtIndexPath:(NSIndexPath *)indexPath
@@ -155,13 +166,15 @@ static NSInteger const SCORE_STEP = 4;
         [cell removeCard];
         [previousCell removeCard];
     } else {
-        [cell setImageWithName:currentItem.backgroundImageName];
-        [previousCell setImageWithName:previousItem.backgroundImageName];
+        [cell setImageWithName:currentItem.backgroundImageName animation:NO completion:nil];
+        [previousCell setImageWithName:previousItem.backgroundImageName animation:NO completion:nil];
     }
     
-    [self updateScore:isSameType];
+    self.clickCount = 0;
     self.previousIndexPath = nil;
     self.cardsCollectionView.userInteractionEnabled = YES;
+    
+    [self updateScore:isSameType];
 }
 
 - (void)updateScore:(BOOL)isScorePlus
@@ -189,21 +202,14 @@ static NSInteger const SCORE_STEP = 4;
 {
     _scoreCount = scoreCount;
     
-    [self.scoreButton setTitle:[NSString stringWithFormat:@"Score:%@", @(self.scoreCount)] forState:UIControlStateNormal];
-}
-
-#pragma mark - Reset the Game
-
-- (IBAction)resetGame:(id)sender
-{
-    [self showRestartAlter];
+    [self.scoreButton setTitle:[NSString stringWithFormat:@"Score: %@", @(self.scoreCount)] forState:UIControlStateNormal];
 }
 
 #pragma mark - Show input name alert
 
 - (void)showInputUserNameAlter
 {
-    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Information" message:@"Please enter your name" preferredStyle: UIAlertControllerStyleAlert];
+    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Congratulation!" message:@"Please enter your name" preferredStyle: UIAlertControllerStyleAlert];
     [alterController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"User name";
     }];
@@ -232,20 +238,66 @@ static NSInteger const SCORE_STEP = 4;
 {
     NSString *text = textField.text;
     text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    if (text.length > 0) {
-        self.okAction.enabled = YES;
-        self.userName = text;
-    } else {
+    string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    // validate text input
+    if ((text.length == 0 && string.length == 0) || (string.length == 0 && (text.length - range.length) == 0)) {
         self.okAction.enabled = NO;
+    } else {
+        self.okAction.enabled = YES;
+        self.userName = [NSString stringWithFormat:@"%@%@", textField.text, string];
     }
     
     return  YES;
 }
 
-static NSString * const SORT_KEY = @"score";
+#pragma mark - save user data
 
 - (void)SaveUserData
+{
+    NSArray<User *> *allUserList = [self fetchUserListWithPredicate:nil];
+    NSArray<User *> *highScoreUserList = [self fetchUserListWithPredicate:[NSPredicate predicateWithFormat:@"is_high_score=YES"]];
+    NSInteger highScoreListCount = highScoreUserList.count;
+    
+    // the table is empty
+    if (highScoreListCount == 0) {
+        [self addNewRecordToDatabase:YES];
+        [self showRankResultAlert:1];
+    } else {
+        User *hightScoreLastUser = highScoreUserList[highScoreListCount-1];
+        
+        // user score less than current high score
+        if (self.scoreCount < hightScoreLastUser.score) {
+            [self addNewRecordToDatabase:NO];
+            
+            // all records of user are high score
+            if (allUserList.count == highScoreListCount) {
+                [self showRankResultAlert:highScoreListCount+1];
+            } else {
+                [self processRankInUserList:allUserList];
+            }
+        } else { // user score higher than current high score
+            [self addNewRecordToDatabase:YES];
+            [self processRankInUserList:highScoreUserList];
+        }
+    }
+}
+
+- (void)processRankInUserList:(NSArray<User *> *)userList
+{
+    __weak typeof(self) weakSelf = self;
+    [userList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (weakSelf.scoreCount >= user.score) {
+            [weakSelf showRankResultAlert:idx+2];
+            
+            return;
+        }
+    }];
+}
+
+static NSString * const SORT_KEY = @"score";
+
+- (NSArray<User *> *)fetchUserListWithPredicate:(NSPredicate *)predicate
 {
     NSPersistentContainer *container = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
     NSManagedObjectContext *context = [container viewContext];
@@ -253,44 +305,12 @@ static NSString * const SORT_KEY = @"score";
     if (context != nil) {
         NSFetchRequest *request = [User fetchRequest];
         request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
-        NSArray<User *> *allUserList = [context executeFetchRequest:request error:nil];
+        request.predicate = predicate;
         
-        request.predicate = [NSPredicate predicateWithFormat:@"is_high_score=YES"];
-        NSArray<User *> *highScoreUserList = [context executeFetchRequest:request error:nil];
-        NSInteger highScoreListCount = highScoreUserList.count;
-        
-        if (highScoreListCount == 0) {
-            [self addNewRecordToDatabase:YES];
-            [self showRankResultAlert:1];
-        } else {
-            __weak typeof(self) weakSelf = self;
-            User *hightScoreLastUser = highScoreUserList[highScoreListCount-1];
-            
-            if (self.scoreCount < hightScoreLastUser.score) {
-                if (allUserList.count == highScoreListCount) {
-                    [weakSelf addNewRecordToDatabase:NO];
-                    [weakSelf showRankResultAlert:highScoreListCount+1];
-                } else {
-                    [allUserList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
-                        if (weakSelf.scoreCount >= user.score) {
-                            [weakSelf addNewRecordToDatabase:NO];
-                            [weakSelf showRankResultAlert:idx+2];
-                            
-                            return;
-                        }
-                    }];
-                }
-            } else {
-                [highScoreUserList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (weakSelf.scoreCount >= user.score) {
-                        [weakSelf addNewRecordToDatabase:YES];
-                        [weakSelf showRankResultAlert:idx+2];
-                        return;
-                    }
-                }];
-            }
-        }
+        return [context executeFetchRequest:request error:nil];
     }
+    
+    return nil;
 }
 
 - (void)addNewRecordToDatabase:(BOOL)isHighScore
@@ -311,29 +331,48 @@ static NSString * const SORT_KEY = @"score";
 
 - (void)showRankResultAlert:(NSInteger)rank
 {
-    NSString *message = [NSString stringWithFormat:@"Your rank: %@, score: %@", @(rank), @(self.scoreCount)];
-    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:message preferredStyle: UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    NSString *message = [NSString stringWithFormat:@"Your 👍rank: %@, 👏score: %@", @(rank), @(self.scoreCount)];
+    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Excellent"
+                                                                             message:message
+                                                                      preferredStyle: UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         [self startNewGame];
+                                                     }];
     [alterController addAction:okAction];
     
     [self presentViewController:alterController animated:YES completion:nil];
 }
 
-#pragma mark - Show restart alter
+#pragma mark - Reset the Game
+
+- (IBAction)resetGame:(id)sender
+{
+    [self showRestartAlter];
+}
+
+- (void)startNewGame
+{
+    [self initDataSource];
+    [self.cardsCollectionView reloadData];
+}
+
+#pragma mark - Show reset alter
 
 - (void)showRestartAlter
 {
-    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"" message:@"Do your want restart a game?" preferredStyle: UIAlertControllerStyleAlert];
-    
-    __weak typeof(self) weakSelf = self;
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf initDataSource];
-        [weakSelf.cardsCollectionView reloadData];
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }];
-    
+    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@""
+                                                                             message:@"Do your want to restart a game?"
+                                                                      preferredStyle: UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         [self startNewGame];
+                                                     }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
     [alterController addAction:cancelAction];
     [alterController addAction:okAction];
     

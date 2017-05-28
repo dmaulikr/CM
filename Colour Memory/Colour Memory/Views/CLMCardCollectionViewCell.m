@@ -24,6 +24,17 @@
     self.isRemoved = NO;
 }
 
+- (void)setImageWithName:(NSString *_Nonnull)name animation:(BOOL)animation completion:(void (^ __nullable)(BOOL finished))completion
+{
+    if (animation == NO) {
+        [self setImageWithName:name];
+    } else {
+        [UIView transitionWithView:self.cardImageView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+            [self setImageWithName:name];
+        } completion:completion];
+    }
+}
+
 - (void)removeCard
 {
     self.cardImageView.hidden = YES;

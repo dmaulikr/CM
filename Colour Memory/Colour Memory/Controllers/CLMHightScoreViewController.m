@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 #import "UserEntity.h"
 
-static NSString * const  identifier = @"CLMScoreRankTableViewCell";
+static NSString * const  IDENTIFIER = @"CLMScoreRankTableViewCell";
 
 @interface CLMHightScoreViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -65,7 +65,10 @@ static NSString * const SORT_KEY = @"score";
         request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
         request.predicate = [NSPredicate predicateWithFormat:@"is_high_score=YES"];
         
-        self.fetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+        self.fetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                          managedObjectContext:context
+                                                                            sectionNameKeyPath:nil
+                                                                                     cacheName:nil];
         [self.fetchResultsController performFetch:nil];
         [self.scoreRankTableView reloadData];
     }
@@ -81,7 +84,7 @@ static NSString * const SORT_KEY = @"score";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CLMScoreRankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    CLMScoreRankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IDENTIFIER forIndexPath:indexPath];
     
     User *userEntity = [self.fetchResultsController objectAtIndexPath:indexPath];
     UserEntity *item = [[UserEntity alloc] initUserWithName:userEntity.name score:userEntity.score rank:indexPath.row+1];

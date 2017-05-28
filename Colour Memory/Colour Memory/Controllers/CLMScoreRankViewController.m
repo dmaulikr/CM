@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "UserEntity.h"
 
+static NSString * const  identifier = @"CLMScoreRankTableViewCell";
+
 @interface CLMScoreRankViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *scoreRankTableView;
@@ -34,7 +36,7 @@
     self.scoreRankTableView.dataSource = self;
     
     UIView *footerView = [[UIView alloc] initWithFrame:(CGRect){0,0, [UIScreen mainScreen].bounds.size.width, 1}];
-    footerView.backgroundColor = [UIColor whiteColor];
+    footerView.backgroundColor = [UIColor lightGrayColor];
     self.scoreRankTableView.tableFooterView = footerView;
 }
 
@@ -47,7 +49,7 @@ static NSString * const SORT_KEY = @"score";
     
     if (context != nil) {
         NSFetchRequest *request = [User fetchRequest];
-        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:false]];
+        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
         self.fetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
         [self.fetchResultsController performFetch:nil];
         [self.scoreRankTableView reloadData];
@@ -64,12 +66,7 @@ static NSString * const SORT_KEY = @"score";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier = @"CLMScoreRankTableViewCell";
     CLMScoreRankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell) {
-        cell = [[CLMScoreRankTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
     
     User *userEntity = [self.fetchResultsController objectAtIndexPath:indexPath];
     UserEntity *item = [[UserEntity alloc] initUserWithName:userEntity.name score:userEntity.score rank:indexPath.row+1];

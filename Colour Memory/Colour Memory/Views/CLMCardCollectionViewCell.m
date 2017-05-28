@@ -20,14 +20,14 @@
 - (void)setImageWithName:(NSString *)name
 {
     [self.cardImageView setImage:[UIImage imageNamed:name]];
-    self.cardImageView.hidden = false;
-    self.isRemoved = false;
+    self.cardImageView.hidden = NO;
+    self.isRemoved = NO;
 }
 
 - (void)removeCard
 {
-    self.cardImageView.hidden = true;
-    self.isRemoved = true;
+    self.cardImageView.hidden = YES;
+    self.isRemoved = YES;
 }
 
 @end

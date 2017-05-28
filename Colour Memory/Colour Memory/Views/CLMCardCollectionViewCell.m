@@ -29,7 +29,7 @@
     if (animation == NO) {
         [self setImageWithName:name];
     } else {
-        [UIView transitionWithView:self.cardImageView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        [UIView transitionWithView:self.cardImageView duration:0.8 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
             [self setImageWithName:name];
         } completion:completion];
     }

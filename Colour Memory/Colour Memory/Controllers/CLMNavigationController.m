@@ -19,14 +19,20 @@
     [super viewDidLoad];
 }
 
-- (BOOL)shouldAutorotate
+// these method could be overrided in sub viewControllers
+-(BOOL)shouldAutorotate
 {
-    // only game board page displays in portrait 
-    if (self.viewControllers.count == 1) {
-        return NO;
-    }
-    
-    return YES;
+    return [[self.viewControllers lastObject] shouldAutorotate];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [[self.viewControllers lastObject] supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return [[self.viewControllers lastObject] preferredInterfaceOrientationForPresentation];
 }
 
 @end

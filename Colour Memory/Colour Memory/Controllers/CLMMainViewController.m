@@ -9,7 +9,7 @@
 #import "CLMMainViewController.h"
 #import "CLMCardCollectionViewCell.h"
 #import <CoreData/CoreData.h>
-//#import "User+CoreDataClass.h"
+#import "User+CoreDataClass.h"
 #import "AppDelegate.h"
 #import "CardEntity.h"
 
@@ -25,6 +25,7 @@
 @property (assign, nonatomic) NSInteger cardsCount;
 @property (assign, nonatomic) NSInteger scoreCount;
 @property (copy, nonatomic) NSString *userName;
+@property (strong, nonatomic) NSDate *finishedDate;
 @property (assign, nonatomic) CGFloat padding;
 
 @end
@@ -181,6 +182,7 @@ static NSInteger const HORIZON_NUMBER = 4;
     
     if (cardsCount == 0) {
         [self showInputUserNameAlter];
+        self.finishedDate = [NSDate date];
     }
 }
 
@@ -202,11 +204,10 @@ static NSInteger const HORIZON_NUMBER = 4;
 
 - (void)showInputUserNameAlter /** TODO: optimizing*/
 {
-    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Congratulation!" message:@"Please enter your name" preferredStyle: UIAlertControllerStyleAlert];
+    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Information" message:@"Please enter your name" preferredStyle: UIAlertControllerStyleAlert];
     
     __weak typeof(self) weakSelf = self;
     self.okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //weakSelf.userName = userNameTextField.text;
         
         if (weakSelf.userName.length != 0) {
             [weakSelf addNewRecordToDatabase];
@@ -219,6 +220,7 @@ static NSInteger const HORIZON_NUMBER = 4;
     [alterController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"User name";
     }];
+    
     UITextField *userNameTextField = [alterController textFields][0];
     userNameTextField.delegate = self;
     
@@ -231,16 +233,42 @@ static NSInteger const HORIZON_NUMBER = 4;
 - (void)showRankResultAlert
 {
     // get rank data
-    NSNumber *score = @(2);
-    NSNumber *rank = @(1);
+    NSNumber *score = [NSNumber numberWithInteger:self.scoreCount];
+    NSNumber *rank = [NSNumber numberWithInteger:[self getRankNumber]];
     
     // show alert
-    NSString *message = [NSString stringWithFormat:@"Your score is:%@, your rank is:%@", score, rank];
-    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"" message:message preferredStyle: UIAlertControllerStyleAlert];
+    NSString *message = [NSString stringWithFormat:@"Your rank: %@, score: %@", rank, score];
+    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:message preferredStyle: UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alterController addAction:okAction];
     
     [self presentViewController:alterController animated:YES completion:nil];
+}
+
+static NSString * const SORT_KEY = @"score";
+
+- (NSInteger)getRankNumber
+{
+    NSPersistentContainer *container = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
+    NSManagedObjectContext *context = [container viewContext];
+    __block NSInteger rank = 0;
+    
+    if (context != nil) {
+        NSFetchRequest *request = [User fetchRequest];
+        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
+        //request.predicate = [NSPredicate predicateWithFormat:@"name=%@, finished_time=%@",self.userName, self.finishedDate];
+        
+        __weak typeof(self) weakSelf = self;
+        NSArray<User *> *userList = [context executeFetchRequest:request error:nil];
+        [userList enumerateObjectsUsingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@"user name:%@", user.name);
+            if ([user.name isEqualToString:weakSelf.userName]) {
+                rank = idx + 1;
+            }
+        }];
+    }
+    
+    return rank;
 }
 
 - (void)showRestartAlter
@@ -269,21 +297,33 @@ static NSInteger const HORIZON_NUMBER = 4;
         User *userEntity = [[User alloc] initWithContext:context];
         userEntity.name = self.userName;
         userEntity.score = (int32_t)self.scoreCount;
+        userEntity.finished_time = self.finishedDate;
         
-        // TODO: handle erro
         [context save:nil];
+        // TODO: handle erro
+//        NSError *error = nil;
+//        BOOL success = [context save:&error];
+//        if (success == NO) {
+//            NSAssert(@"Failed to execute: %@",error);
+//        }
     }];
 }
 
 #pragma mark - UITextFieldDelegate
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField.text.length > 0) {
+    NSString *text = textField.text;
+    text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if (text.length > 0) {
         self.okAction.enabled = YES;
+        self.userName = text;
     } else {
         self.okAction.enabled = NO;
     }
+
+    return  YES;
 }
 
 @end

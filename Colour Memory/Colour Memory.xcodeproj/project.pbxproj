@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C01CDA11EDA7FBE00C85D7D /* CLMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01CDA01EDA7FBE00C85D7D /* CLMNavigationController.m */; };
 		4C0A34B21ED9508700C7E6A7 /* ColourMemory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A34B01ED9508700C7E6A7 /* ColourMemory.xcdatamodeld */; };
 		4C4185251ED8238700E51BEF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185241ED8238700E51BEF /* AppDelegate.m */; };
 		4C41852B1ED8238800E51BEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C4185291ED8238800E51BEF /* Main.storyboard */; };
@@ -36,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C01CD9F1EDA7FBE00C85D7D /* CLMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLMNavigationController.h; path = Controllers/CLMNavigationController.h; sourceTree = "<group>"; };
+		4C01CDA01EDA7FBE00C85D7D /* CLMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLMNavigationController.m; path = Controllers/CLMNavigationController.m; sourceTree = "<group>"; };
 		4C0A34B11ED9508700C7E6A7 /* ColourMemory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ColourMemory.xcdatamodel; sourceTree = "<group>"; };
 		4C41851D1ED8238700E51BEF /* Colour Memory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Colour Memory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4185231ED8238700E51BEF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -164,6 +167,8 @@
 				4C4185D31ED91C0A00E51BEF /* CLMMainViewController.m */,
 				4C4185D01ED91C0A00E51BEF /* CLMScoreRankViewController.h */,
 				4C4185D11ED91C0A00E51BEF /* CLMScoreRankViewController.m */,
+				4C01CD9F1EDA7FBE00C85D7D /* CLMNavigationController.h */,
+				4C01CDA01EDA7FBE00C85D7D /* CLMNavigationController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 				4C41855F1ED84A7600E51BEF /* CardEntity.m in Sources */,
 				4C4185251ED8238700E51BEF /* AppDelegate.m in Sources */,
 				4C4185CF1ED91BFA00E51BEF /* main.m in Sources */,
+				4C01CDA11EDA7FBE00C85D7D /* CLMNavigationController.m in Sources */,
 				4C4185DA1ED91C1600E51BEF /* CLMCardCollectionViewCell.m in Sources */,
 				4C4185DB1ED91C1600E51BEF /* CLMScoreRankTableViewCell.m in Sources */,
 				4C41855C1ED834CB00E51BEF /* UserEntity.m in Sources */,

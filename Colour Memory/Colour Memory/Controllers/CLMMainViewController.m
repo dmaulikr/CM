@@ -160,12 +160,15 @@ static NSInteger const SCORE_STEP = 4;
         self.clickCount++;
     }
     
+    if (self.previousIndexPath == nil) {
+        self.previousIndexPath = indexPath;
+    }
+    
     __weak typeof(self) weakSelf = self;
     [cell setImageWithName:currentItem.cardImageName animation:YES completion:^(BOOL finished) {
-        if (weakSelf.previousIndexPath == nil) {
-            weakSelf.previousIndexPath = indexPath;
-        } else {
+        if (weakSelf.previousIndexPath != indexPath) {
             [weakSelf performSelector:@selector(updateCardsStatusAtIndexPath:) withObject:indexPath afterDelay:1.0];
+            
         }
     }];
 }
@@ -304,8 +307,8 @@ static NSInteger const SCORE_STEP = 4;
 {
     __weak typeof(self) weakSelf = self;
     [userList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (weakSelf.scoreCount >= user.score) {
-            [weakSelf showRankResultAlert:idx+2];
+        if (idx == 0 || (weakSelf.scoreCount >= user.score && weakSelf.scoreCount <= [userList objectAtIndex:idx-1].score)) {
+            [weakSelf showRankResultAlert:idx+1];
             
             return;
         }

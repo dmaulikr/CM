@@ -81,7 +81,6 @@ static NSInteger const SCORE_STEP = 4;
     return UIInterfaceOrientationPortrait;
 }
 
-
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -168,7 +167,6 @@ static NSInteger const SCORE_STEP = 4;
     [cell setImageWithName:currentItem.cardImageName animation:YES completion:^(BOOL finished) {
         if (weakSelf.previousIndexPath != indexPath) {
             [weakSelf performSelector:@selector(updateCardsStatusAtIndexPath:) withObject:indexPath afterDelay:1.0];
-            
         }
     }];
 }

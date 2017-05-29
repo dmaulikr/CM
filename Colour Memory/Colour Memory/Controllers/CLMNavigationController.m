@@ -19,7 +19,7 @@
     [super viewDidLoad];
 }
 
-// these method could be overrided in sub viewControllers
+// these methods could be overrided in sub viewControllers
 -(BOOL)shouldAutorotate
 {
     return [[self.viewControllers lastObject] shouldAutorotate];

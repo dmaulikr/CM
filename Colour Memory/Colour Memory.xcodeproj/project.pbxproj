@@ -33,7 +33,6 @@
 		4C4185D51ED91C0A00E51BEF /* CLMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D31ED91C0A00E51BEF /* CLMMainViewController.m */; };
 		4C4185DA1ED91C1600E51BEF /* CLMCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D71ED91C1600E51BEF /* CLMCardCollectionViewCell.m */; };
 		4C4185DB1ED91C1600E51BEF /* CLMScoreRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4185D91ED91C1600E51BEF /* CLMScoreRankTableViewCell.m */; };
-		4CB3AB9A1ED97F73000D2A23 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3AB991ED97F73000D2A23 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -262,7 +261,6 @@
 				4C41854A1ED826EB00E51BEF /* colour6@2x.png in Resources */,
 				4C41852D1ED8238800E51BEF /* Assets.xcassets in Resources */,
 				4C41854B1ED826EB00E51BEF /* colour7@2x.png in Resources */,
-				4CB3AB9A1ED97F73000D2A23 /* Info.plist in Resources */,
 				4C41854F1ED826EB00E51BEF /* logo@2x.png in Resources */,
 				4C41852B1ED8238800E51BEF /* Main.storyboard in Resources */,
 				4C4185461ED826EB00E51BEF /* colour2@2x.png in Resources */,

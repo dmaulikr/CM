@@ -20,18 +20,19 @@
     NSArray<User *> *allUserList = [CLMUserManager fetchUserListWithPredicate:nil];
     NSArray<User *> *highScoreUserList = [CLMUserManager fetchHighScoreUserList];
     NSInteger highScoreListCount = highScoreUserList.count;
+    BOOL isHighScore = NO;
     NSUInteger rank = 0;
     
     // the table is empty
     if (highScoreListCount == 0) {
-        [CLMUserManager saveUserName:userName score:score isHighScore:YES];
+        isHighScore = YES;
         rank = 1;
     } else {
         User *hightScoreLastUser = highScoreUserList[highScoreListCount-1];
         
         // user score less than current high score
         if (score < hightScoreLastUser.score) {
-            [CLMUserManager saveUserName:userName score:score isHighScore:NO];
+            isHighScore = NO;
             
             // all records of user are high score
             if (allUserList.count == highScoreListCount) {
@@ -40,11 +41,13 @@
                 rank = [CLMUserManager calculateRankInUserList:allUserList score:score];
             }
         } else { // user score higher than current high score
-            [CLMUserManager saveUserName:userName score:score isHighScore:YES];
+            isHighScore = YES;
             rank = [CLMUserManager calculateRankInUserList:highScoreUserList score:score];
         }
     }
     
+    
+    [CLMUserManager saveUserName:userName score:score isHighScore:isHighScore];
     completion(rank);
 }
 

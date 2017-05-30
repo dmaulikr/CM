@@ -10,7 +10,7 @@
 
 @interface UserEntity : NSObject
 
-@property (readonly, nonatomic) NSString *userName;
+@property (readonly, copy, nonatomic) NSString *userName;
 @property (readonly, nonatomic) NSInteger score;
 @property (readonly, nonatomic) NSInteger rank;
 

@@ -1,12 +1,12 @@
 //
-//  CLMHightScoreViewController.h
+//  CLMHighScoreViewController.h
 //  Colour Memory
 //
 //  Created by Michael Zhai on 27/05/17.
 //  Copyright © 2017 Michael Zhai. All rights reserved.
 //
 
-#import "CLMHightScoreViewController.h"
+#import "CLMHighScoreViewController.h"
 #import "CLMScoreRankTableViewCell.h"
 #import <CoreData/CoreData.h>
 #import "User+CoreDataClass.h"
@@ -15,14 +15,14 @@
 
 static NSString * const  IDENTIFIER = @"CLMScoreRankTableViewCell";
 
-@interface CLMHightScoreViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface CLMHighScoreViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *scoreRankTableView;
 @property (strong, nonatomic) NSFetchedResultsController<User *> *fetchResultsController;
 
 @end
 
-@implementation CLMHightScoreViewController
+@implementation CLMHighScoreViewController
 
 - (void)viewDidLoad
 {
@@ -48,7 +48,7 @@ static NSString * const  IDENTIFIER = @"CLMScoreRankTableViewCell";
     titleLabel.font = [UIFont boldSystemFontOfSize:18];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"Hight Score Ranking";
+    titleLabel.text = @"High Score Ranking";
     
     self.navigationItem.titleView = titleLabel;
 }

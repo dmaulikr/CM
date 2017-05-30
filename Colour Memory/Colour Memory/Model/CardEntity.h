@@ -10,9 +10,9 @@
 
 @interface CardEntity : NSObject
 
-@property (readonly, nonatomic) NSString *backgroundImageName;
-@property (readonly, nonatomic) NSString *cardImageName;
-@property (readonly, nonatomic) NSString *type;
+@property (readonly, copy, nonatomic) NSString *backgroundImageName;
+@property (readonly, copy, nonatomic) NSString *cardImageName;
+@property (readonly, copy, nonatomic) NSString *type;
 
 @end
 

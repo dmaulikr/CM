@@ -118,10 +118,10 @@
             </objects>
             <point key="canvasLocation" x="-199.5" y="-54.5"/>
         </scene>
-        <!--Hight Score View Controller-->
+        <!--High Score View Controller-->
         <scene sceneID="s1h-Yf-X0N">
             <objects>
-                <viewController storyboardIdentifier="CLMHightScoreViewController" id="64t-rg-4Le" customClass="CLMHightScoreViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CLMHightScoreViewController" id="64t-rg-4Le" customClass="CLMHighScoreViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S5r-cX-ZIo"/>
                         <viewControllerLayoutGuide type="bottom" id="Cwb-2n-8bj"/>

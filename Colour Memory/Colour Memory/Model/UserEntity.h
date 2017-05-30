@@ -12,8 +12,8 @@
 
 @property (readonly, copy, nonatomic) NSString *userName;
 @property (readonly, nonatomic) NSInteger score;
-@property (readonly, nonatomic) NSInteger rank;
+@property (readonly, nonatomic) NSUInteger rank;
 
-- (instancetype)initUserWithName:(NSString *)userName score:(NSInteger)score rank:(NSInteger)rank;
+- (instancetype)initUserWithName:(NSString *)userName score:(NSInteger)score rank:(NSUInteger)rank;
 
 @end

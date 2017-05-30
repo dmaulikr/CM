@@ -10,7 +10,7 @@
 #import "CLMCardCollectionViewCell.h"
 #import <CoreData/CoreData.h>
 #import "User+CoreDataClass.h"
-#import "AppDelegate.h"
+#import "CLMUserManager.h"
 #import "CardEntity.h"
 
 @interface CLMMainViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UITextFieldDelegate>
@@ -238,9 +238,9 @@ static NSInteger const SCORE_STEP = 4;
     __weak typeof(self) weakSelf = self;
     self.okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if (weakSelf.userName.length != 0) {
-            [self SaveUserData];
-        } else {
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [CLMUserManager saveUserName:weakSelf.userName score:weakSelf.scoreCount completion:^(NSInteger rank) {
+                [weakSelf showRankResultAlert:rank];
+            }];
         }
     }];
     
@@ -269,80 +269,11 @@ static NSInteger const SCORE_STEP = 4;
     return  YES;
 }
 
-#pragma mark - save user data
+#pragma mark - CLMUserManagerDelegate
 
-- (void)SaveUserData
+- (void)userManager:(CLMUserManager *)userManager currentRank:(NSInteger)rank
 {
-    NSArray<User *> *allUserList = [self fetchUserListWithPredicate:nil];
-    NSArray<User *> *highScoreUserList = [self fetchUserListWithPredicate:[NSPredicate predicateWithFormat:@"is_high_score=YES"]];
-    NSInteger highScoreListCount = highScoreUserList.count;
-    
-    // the table is empty
-    if (highScoreListCount == 0) {
-        [self addNewRecordToDatabase:YES];
-        [self showRankResultAlert:1];
-    } else {
-        User *hightScoreLastUser = highScoreUserList[highScoreListCount-1];
-        
-        // user score less than current high score
-        if (self.scoreCount < hightScoreLastUser.score) {
-            [self addNewRecordToDatabase:NO];
-            
-            // all records of user are high score
-            if (allUserList.count == highScoreListCount) {
-                [self showRankResultAlert:highScoreListCount+1];
-            } else {
-                [self processRankInUserList:allUserList];
-            }
-        } else { // user score higher than current high score
-            [self addNewRecordToDatabase:YES];
-            [self processRankInUserList:highScoreUserList];
-        }
-    }
-}
-
-- (void)processRankInUserList:(NSArray<User *> *)userList
-{
-    __weak typeof(self) weakSelf = self;
-    [userList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(User * _Nonnull user, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (idx == 0 || (weakSelf.scoreCount >= user.score && weakSelf.scoreCount <= [userList objectAtIndex:idx-1].score)) {
-            [weakSelf showRankResultAlert:idx+1];
-            
-            return;
-        }
-    }];
-}
-
-static NSString * const SORT_KEY = @"score";
-
-- (NSArray<User *> *)fetchUserListWithPredicate:(NSPredicate *)predicate
-{
-    NSPersistentContainer *container = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
-    NSManagedObjectContext *context = [container viewContext];
-    
-    if (context != nil) {
-        NSFetchRequest *request = [User fetchRequest];
-        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
-        request.predicate = predicate;
-        
-        return [context executeFetchRequest:request error:nil];
-    }
-    
-    return nil;
-}
-
-- (void)addNewRecordToDatabase:(BOOL)isHighScore
-{
-    NSPersistentContainer  *container =  ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
-    [container performBackgroundTask:^(NSManagedObjectContext * _Nonnull context) {
-        User *userEntity = [[User alloc] initWithContext:context];
-        userEntity.name = self.userName;
-        userEntity.score = (int32_t)self.scoreCount;
-        userEntity.finished_time = [NSDate date];
-        userEntity.is_high_score = isHighScore;
-        
-        [context save:nil];
-    }];
+    [self showRankResultAlert:rank];
 }
 
 #pragma mark - Show rank result alert

@@ -10,6 +10,7 @@
 #import "CLMScoreRankTableViewCell.h"
 #import <CoreData/CoreData.h>
 #import "User+CoreDataClass.h"
+#import "CLMUserManager.h"
 #import "AppDelegate.h"
 #import "UserEntity.h"
 
@@ -30,7 +31,9 @@ static NSString * const  IDENTIFIER = @"CLMScoreRankTableViewCell";
     
     [self setNavigationBarTitle];
     [self initTableView];
-    [self fetchData];
+    
+    self.fetchResultsController = [CLMUserManager fetchHighScoreResults];
+    [self.scoreRankTableView reloadData];
 }
 
 - (void)initTableView
@@ -51,27 +54,6 @@ static NSString * const  IDENTIFIER = @"CLMScoreRankTableViewCell";
     titleLabel.text = @"High Score Ranking";
     
     self.navigationItem.titleView = titleLabel;
-}
-
-static NSString * const SORT_KEY = @"score";
-
-- (void)fetchData
-{
-    NSPersistentContainer *container = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer;
-    NSManagedObjectContext *context = [container viewContext];
-    
-    if (context != nil) {
-        NSFetchRequest *request = [User fetchRequest];
-        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:SORT_KEY ascending:NO]];
-        request.predicate = [NSPredicate predicateWithFormat:@"is_high_score=YES"];
-        
-        self.fetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                          managedObjectContext:context
-                                                                            sectionNameKeyPath:nil
-                                                                                     cacheName:nil];
-        [self.fetchResultsController performFetch:nil];
-        [self.scoreRankTableView reloadData];
-    }
 }
 
 #pragma mark - UITableViewDataSource

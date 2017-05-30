@@ -12,13 +12,13 @@
 
 @property (copy, nonatomic, readwrite) NSString *userName;
 @property (assign, nonatomic, readwrite) NSInteger score;
-@property (assign, nonatomic, readwrite) NSInteger rank;
+@property (assign, nonatomic, readwrite) NSUInteger rank;
 
 @end
 
 @implementation UserEntity
 
-- (instancetype)initUserWithName:(NSString *)userName score:(NSInteger)score rank:(NSInteger)rank;
+- (instancetype)initUserWithName:(NSString *)userName score:(NSInteger)score rank:(NSUInteger)rank;
 {
     self = [super init];
     if (self) {

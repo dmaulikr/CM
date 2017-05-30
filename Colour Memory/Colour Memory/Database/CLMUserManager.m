@@ -48,7 +48,10 @@
     
     
     [CLMUserManager saveUserName:userName score:score isHighScore:isHighScore];
-    completion(rank);
+    
+    if (completion) {
+        completion(rank);
+    }
 }
 
 + (NSUInteger)calculateRankInUserList:(NSArray<User *> *)userList score:(NSInteger)score
